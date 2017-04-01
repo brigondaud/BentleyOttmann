@@ -10,6 +10,19 @@ for each file:
 import sys
 from geo.segment import load_segments
 from geo.tycat import tycat
+from events import Event, Events
+
+def bentley_ottmann(segments, adujster):
+    """
+    computes and returns the result of the bentley ottmann algorithm for the given
+    segments and ajuster.
+    the intesections are given for each segments.
+    """
+    # adding all the creation and destruction events for the given
+    # segments list
+    events = Events()
+    for segment in segments:
+        events.create_event()
 
 def test(filename):
     """
