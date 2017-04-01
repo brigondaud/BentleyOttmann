@@ -6,6 +6,10 @@ contains the Event object and the Events container.
 
 from sortedcontainers import SortedList
 
+CREATION = 0
+DESTRUCTION = 1
+INTERSECTION = 2
+
 class Event:
     """
     The Event object corresponds to a creation or a destruction of a
@@ -13,9 +17,25 @@ class Event:
     in order to sort it in the Events structure.
     """
 
-    def __init__(self, event_type):
+    def __init__(self, event_type, coordinates):
+        """
+        event_type is the type of the event (creation, destruction or intersections),
+        coordinates, the coordinates of the Point, and segments a list of
+        the segments associated to the point.
+        """
         #TODO: definition of the class.
         pass
+        self.type = event_type
+        self.key = coordinates
+        self.segments = []
+
+    def event_comparison(self):
+        """
+        used as a key to compare the elements beetween them.
+        """
+        return (- self.key[1], - self.key[0])
+
+
 
 class Events:
     """
@@ -24,5 +44,5 @@ class Events:
     """
 
     def __init__(self):
-        #TODO: definition of the class.
-        pass
+        #TODO: compute the optimal load number
+        self.event_list = SortedListWithKey(None, Event.event_comparison())
