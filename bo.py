@@ -22,7 +22,7 @@ def bentley_ottmann(segments, adujster):
     # segments list
     events = Events()
     for segment in segments:
-        events.create_event()
+        events.init_segment_events(segment)
 
 def test(filename):
     """
