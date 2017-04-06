@@ -41,9 +41,16 @@ class Events:
     and the suppression.
     """
 
-    def __init__(self):
+    def __init__(self, segments):
+        """
+        creates all the events for the initial segments and write them
+        in the sortedlist (with key) structure in order to have a near
+        tree structure complexity
+        """
         #TODO: compute the optimal load number
         self.event_list = SortedListWithKey(None, Event.event_comparison)
+        for segment in segments:
+            self.init_segment_events(segment)
 
     def init_segment_events(self, segment):
         """
@@ -69,8 +76,7 @@ def events_init_test():
     test the init of a segment in the series of event
     """
     print("------------Segment init test------------")
-    events = Events()
-    events.init_segment_events(Segment([Point([1.0, 2.0]), Point([3.0, 4.0])]))
+    events = Events([Segment([Point([1.0, 2.0]), Point([3.0, 4.0])])])
     print(events)
     print("-----------------------------------------")
 

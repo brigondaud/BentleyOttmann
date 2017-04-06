@@ -20,9 +20,7 @@ def bentley_ottmann(segments, adujster):
     """
     # adding all the creation and destruction events for the given
     # segments list
-    events = Events()
-    for segment in segments:
-        events.init_segment_events(segment)
+    events = Events(segments)
 
 def test(filename):
     """
