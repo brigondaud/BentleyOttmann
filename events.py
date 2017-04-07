@@ -75,10 +75,11 @@ def events_init_test():
     """
     test the init of a segment in the series of event
     """
-    print("------------Segment init test------------")
-    events = Events([Segment([Point([1.0, 2.0]), Point([3.0, 4.0])])])
+    print("\n------------Segment init test------------")
+    events = Events([Segment([Point([1.0, 2.0]), Point([3.0, 4.0])]),
+        Segment([Point([-3.0, -4.0]), Point([3.0, -4.0])])])
     print(events)
-    print("-----------------------------------------")
+    print("-----------------------------------------\n")
 
 if __name__ == "__main__":
     """
