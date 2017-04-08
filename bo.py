@@ -10,7 +10,7 @@ for each file:
 import sys
 from geo.segment import load_segments
 from geo.tycat import tycat
-from events import Event, Events
+from events import Events
 
 def bentley_ottmann(segments, adujster):
     """
