@@ -21,13 +21,16 @@ def bentley_ottmann(segments, adujster):
     # adding all the creation and destruction events for the given
     # segments list
     events = Events(segments)
+    return events
 
 def test(filename):
     """
     run bentley ottmann
     """
     adjuster, segments = load_segments(filename)
+    events = bentley_ottmann(segments, adjuster)
     tycat(segments)
+    print(events)
     #TODO: merci de completer et de decommenter les lignes suivantes
     #results = lancer bentley ottmann sur les segments et l'ajusteur
     #...
