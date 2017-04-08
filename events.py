@@ -69,7 +69,7 @@ class Events:
         """
         returns the events from the event list (debugg)
         """
-        return " | ".join([str(event.key) for event in iter(self.event_list)])
+        return " \n ".join([str(event.key) for event in iter(self.event_list)])
 
 def events_init_test():
     """
