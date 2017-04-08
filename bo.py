@@ -11,6 +11,7 @@ import sys
 from geo.segment import load_segments
 from geo.tycat import tycat
 from events import Events
+from segmenttree import SegmentTree
 
 def bentley_ottmann(segments, adujster):
     """
@@ -18,9 +19,11 @@ def bentley_ottmann(segments, adujster):
     segments and ajuster.
     the intesections are given for each segments.
     """
-    # adding all the creation and destruction events for the given
-    # segments list
+    # adds all the creation and destruction events for the given segments
     events = Events(segments)
+    # creates the structure for the 'alive' segments
+    living_segments = SegmentTree
+
     return events
 
 def test(filename):

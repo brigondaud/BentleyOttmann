@@ -65,6 +65,12 @@ class Events:
         self.event_list.add(event_creation)
         self.event_list.add(event_destruction)
 
+    def isempty(self):
+        """
+        returns true is there are no more events in the structure
+        """
+        return len(self.event_list) == 0
+
     def __str__(self):
         """
         returns the events from the event list (debugg)
