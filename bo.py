@@ -22,7 +22,13 @@ def bentley_ottmann(segments, adujster):
     # adds all the creation and destruction events for the given segments
     events = Events(segments)
     # creates the structure for the 'alive' segments
-    living_segments = SegmentTree
+    living_segments = SegmentTree()
+
+    while not events.isempty():
+        # getting the first event in the events list
+        current_event = events.event_list.pop(0)
+        
+
 
     return events
 
