@@ -27,8 +27,6 @@ def bentley_ottmann(segments, adujster):
     while not events.isempty():
         # getting the first event in the events list
         current_event = events.event_list.pop(0)
-        
-
 
     return events
 

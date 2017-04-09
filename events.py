@@ -56,8 +56,8 @@ class Events:
         """
         creates two event for the segment
         """
-        event_creation = Event(CREATION, segment.endpoints[0])
-        event_destruction = Event(DESTRUCTION, segment.endpoints[1])
+        event_creation = Event(CREATION, segment.endpoints[1])
+        event_destruction = Event(DESTRUCTION, segment.endpoints[0])
         # Add the segment to both events
         event_creation.segments.append(segment)
         event_destruction.segments.append(segment)
