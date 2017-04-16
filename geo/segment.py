@@ -31,6 +31,22 @@ class Segment:
         create a segment from an array of two points.
         """
         self.endpoints = points
+        self.current_point = None
+
+    def __lt__(self, other):
+        """
+        compares two segments
+        """
+        key1 = self.compute_key(self.current_point)
+        key2 = self.compute_key(other.current_point)
+        return key1 < key2
+
+    def compute_key(self, current_point):
+        """
+        computes the key for the bo algorithm
+        """
+        #TODO
+        pass
 
     def copy(self):
         """
