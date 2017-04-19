@@ -68,6 +68,12 @@ class Point:
         """
         return self.coordinates == other.coordinates
 
+    def __lt__(self, other):
+        """
+        self less than other
+        """
+        return self.coordinates < other.coordinates
+
     def __hash__(self):
         return hash(tuple(self.coordinates))
 
