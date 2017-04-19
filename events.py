@@ -70,12 +70,12 @@ class Events:
         event_destruction = Event(DESTRUCTION, segment.endpoints[0])
 
         # Adding the segment in the hashtables based on the event key
-        if event_creation.key is in self.begin_points:
+        if event_creation.key in self.begin_points:
             # if the beginning point alreay exists
             self.begin_points[event_creation.key].append(segment)
         else:
             self.begin_points[event_creation] = [segment]
-        if event_destruction.key is in self.end_points:
+        if event_destruction.key in self.end_points:
             self.end_points[event_destruction.key].append(segment)
         else:
             self.end_points[event_destruction] = [segment]
