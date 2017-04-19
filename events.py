@@ -25,9 +25,10 @@ class Event:
         coordinates, the coordinates of the Point, and segments a list of
         the segments associated to the point.
         """
+        # Keeping the event_type because in case of intersection
+        #the computing of it can produce a "past intersection"
         self.type = event_type
         self.key = point
-        self.segments = []
 
     def event_comparison(self):
         """
@@ -47,6 +48,8 @@ class Events:
         in the sortedlist (with key) structure in order to have a near
         tree structure complexity
         """
+        self.begin_points = dict()
+        self.end_points = dict()
         #TODO: compute the optimal load number
         self.event_list = SortedListWithKey(None, Event.event_comparison)
         for segment in segments:
@@ -62,11 +65,21 @@ class Events:
         """
         creates two event for the segment
         """
+        # Creating the events for the segment
         event_creation = Event(CREATION, segment.endpoints[1])
         event_destruction = Event(DESTRUCTION, segment.endpoints[0])
-        # Add the segment to both events
-        event_creation.segments.append(segment)
-        event_destruction.segments.append(segment)
+
+        # Adding the segment in the hashtables based on the event key
+        if event_creation.key is in self.begin_points:
+            # if the beginning point alreay exists
+            self.begin_points[event_creation.key].append(segment)
+        else:
+            self.begin_points[event_creation] = [segment]
+        if event_destruction.key is in self.end_points:
+            self.end_points[event_destruction.key].append(segment)
+        else:
+            self.end_points[event_destruction] = [segment]
+
         # Add the two events in the events structure
         self.event_list.add(event_creation)
         self.event_list.add(event_destruction)
@@ -81,8 +94,8 @@ class Events:
         """
         finishes the segment on event
         """
-        #TODO
-        pass
+        for segment in events.end_points[event]:
+            pass
 
     def update_curent_point(self, event):
         """
@@ -104,7 +117,7 @@ def events_init_test():
     """
     print("\n------------Segment init test------------")
     events = Events([Segment([Point([1.0, 2.0]), Point([3.0, 4.0])]),
-        Segment([Point([-3.0, -4.0]), Point([3.0, -4.0])])])
+                     Segment([Point([-3.0, -4.0]), Point([3.0, -4.0])])])
     print(events)
     print("-----------------------------------------\n")
 
