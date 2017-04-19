@@ -8,7 +8,7 @@ for each file:
     - print some statistics
 """
 import sys
-from sortedcontainers import SortedListWithKey
+from sortedcontainers import SortedList
 from geo.segment import Segment, load_segments
 from geo.tycat import tycat
 from events import Events
@@ -17,7 +17,7 @@ CREATION = 0
 DESTRUCTION = 1
 INTERSECTION = 2
 
-def bentley_ottmann(segments, adujster):
+def bentley_ottmann(segments, adjuster):
     """
     computes and returns the result of the bentley ottmann algorithm for the given
     segments and ajuster.
@@ -35,13 +35,13 @@ def bentley_ottmann(segments, adujster):
         current_event = events.event_list.pop(0)
 
         #finishing the segments which begin on the current event
-        events.finish_segments(current_event)
+        events.finish_segments(current_event, living_segments, adjuster)
 
         #updating the global current point
         events.update_curent_point(current_event)
 
         #beginning the segments which start from the current_event
-        events.begin_segments(current_event)
+        events.begin_segments(current_event, living_segments, adjuster)
 
     return events #debugg
 

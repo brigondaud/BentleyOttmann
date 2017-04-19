@@ -90,12 +90,27 @@ class Events:
         """
         return len(self.event_list) == 0
 
-    def finish_segments(self, event):
+    def finish_segments(self, event, segments, adjuster):
         """
         finishes the segment on event
         """
-        for segment in events.end_points[event]:
-            pass
+        for segment in self.end_points[event.key]:
+            intersection_points = intersect_with(segment, segments, adjuster)
+            for point, inter_segments in intersection_points:
+                # if point not in the past
+                if point < Segment.current_point:
+                    # If the intersection already exists
+                    if self.begin_points[point] is not None:
+                        # Adds the segment to the existing intersection
+                        # A new event is not needed
+                        #TODO
+                        pass
+                    else:
+                        # Creates the intersection event and add it to the
+                        # hashtables of segments
+                        events.event_list.add(Event(INTERSECTION, point))
+                        self.begin_segments[point] = [inter_segment]
+                        self.end_points[point] = inter_segment
 
     def update_curent_point(self, event):
         """
@@ -104,12 +119,21 @@ class Events:
         #TODO
         pass
 
-    def begin_segments(self, event):
+    def begin_segments(self, event, segments):
         """
         begins the segments on event
         """
         #TODO
         pass
+
+def intersect_with(segment, segments, adjuster):
+    """
+    computes the intersection with the closest segments from segment
+    and returns a list of adjusted intersections with the segments involved
+    (including segment in the parameters)
+    """
+    #TODO
+    pass
 
 def events_init_test():
     """
