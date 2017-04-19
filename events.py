@@ -52,6 +52,12 @@ class Events:
         for segment in segments:
             self.init_segment_events(segment)
 
+    def __str__(self):
+        """
+        returns the events from the event list (debugg)
+        """
+        return " \n ".join([str(event.key) for event in iter(self.event_list)])
+
     def init_segment_events(self, segment):
         """
         creates two event for the segment
@@ -71,11 +77,26 @@ class Events:
         """
         return len(self.event_list) == 0
 
-    def __str__(self):
+    def finish_segments(self, event):
         """
-        returns the events from the event list (debugg)
+        finishes the segment on event
         """
-        return " \n ".join([str(event.key) for event in iter(self.event_list)])
+        #TODO
+        pass
+
+    def update_curent_point(self, event):
+        """
+        updates the global current point based on the points of the event
+        """
+        #TODO
+        pass
+
+    def begin_segments(self, event):
+        """
+        begins the segments on event
+        """
+        #TODO
+        pass
 
 def events_init_test():
     """
