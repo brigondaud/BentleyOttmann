@@ -9,7 +9,7 @@ for each file:
 """
 import sys
 from sortedcontainers import SortedListWithKey
-from geo.segment import load_segments
+from geo.segment import Segment, load_segments
 from geo.tycat import tycat
 from events import Events
 
@@ -29,12 +29,21 @@ def bentley_ottmann(segments, adujster):
     # the structure contains a list with the segment and it's key
     #TODO: compute the optimal load for living segments
     living_segments = SortedList()
-
+    Segment.current_point = None
     while not events.isempty():
         # getting the first event in the events list
         current_event = events.event_list.pop(0)
 
-    return events
+        #finishing the segments which begin on the current event
+        events.finish_segments(current_event)
+
+        #updating the global current point
+        events.update_curent_point()
+
+        #beginning the segments which start from the current_event
+        events.begin_segments(current_event)
+
+    return events #debugg
 
 def test(filename):
     """
