@@ -126,8 +126,8 @@ class Segment:
             str(self.endpoints[1]) + "])"
 
     def __repr__(self):
-        return "[" + repr(self.endpoints[0]) + ", " + \
-            repr(self.endpoints[1]) + "])"
+        return "Segment[" + repr(self.endpoints[0]) + ", " + \
+            repr(self.endpoints[1]) + "]"
 
 
 def load_segments(filename):
