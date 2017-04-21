@@ -75,15 +75,15 @@ class Events:
             self.begin_points[event_creation.key].append(segment)
         else:
             self.begin_points[event_creation.key] = [segment]
+            #Adds the event in the events structure
+            self.event_list.add(event_creation)
 
         if event_destruction.key in self.end_points:
             self.end_points[event_destruction.key].append(segment)
         else:
             self.end_points[event_destruction.key] = [segment]
-
-        # Add the two events in the events structure
-        self.event_list.add(event_creation)
-        self.event_list.add(event_destruction)
+            #Adds the event in the event structure
+            self.event_list.add(event_destruction)
 
     def isempty(self):
         """
@@ -145,11 +145,6 @@ def events_init_test():
                      Segment([Point([-3.0, -4.0]), Point([3.0, -4.0])]),
                      Segment([Point([-3.0, -4.0]), Point([2.0, 4.0])])])
     print(events)
-    print(events.begin_points, "begin points\n")
-    print(events.end_points, "end_points\n")
-    print("printing the type of each key")
-    for key in events.begin_points:
-        print(type(key))
     print("-----------------------------------------\n")
 
 if __name__ == "__main__":
