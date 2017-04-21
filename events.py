@@ -91,27 +91,36 @@ class Events:
         """
         return len(self.event_list) == 0
 
-    def finish_segments(self, event, segments, adjuster):
+    def finish_segments(self, event, living_segments, adjuster):
         """
-        finishes the segment on event
+        finishes the segments on event
         """
+        #TODO: add the computed intersection in the solution
+
         for segment in self.end_points[event.key]:
-            intersection_points = intersect_with(segment, segments, adjuster)
-            for point, inter_segments in intersection_points:
-                # if point not in the past
-                if point < Segment.current_point:
-                    # If the intersection already exists
-                    if self.begin_points[point] is not None:
-                        # Adds the segment to the existing intersection
-                        # A new event is not needed
-                        #TODO
-                        pass
-                    else:
-                        # Creates the intersection event and add it to the
-                        # hashtables of segments
-                        events.event_list.add(Event(INTERSECTION, point))
-                        self.begin_segments[point] = [inter_segment]
-                        self.end_points[point] = inter_segment
+            inter_point, inter_segments = intersect_with(segment,
+                                                        living_segments,
+                                                        adjuster)
+            # if point not in the past
+            if inter_point < Segment.current_point:
+                # If the intersection does not exists
+                if self.begin_points[inter_point] is None:
+                    # Creates the intersection event and add it to the
+                    # hashtables of segments
+                    events.event_list.add(Event(INTERSECTION, inter_point))
+
+                    # Creates the entry in the hastable
+                    self.begin_points[inter_point] = []
+                    self.end_points[inter_point] = []
+
+                # Adds the segment to the hashtable with the computed intersection
+                self.begin_points[inter_point].append(segment)
+                self.end_points[inter_point].append(segment)
+
+                # Adds the segment in intersections with segment
+                for inter_segment in inter_segments:
+                    self.begin_points[inter_point].append[inter_segment]
+                    self.end_points[inter_point].append[inter_segment]
 
     def update_curent_point(self, event):
         """
