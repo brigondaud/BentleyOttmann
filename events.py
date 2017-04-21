@@ -122,6 +122,9 @@ class Events:
                     self.begin_points[inter_point].append[inter_segment]
                     self.end_points[inter_point].append[inter_segment]
 
+        # Removing the current segment from the living segment
+        living_segments.pop(segment)
+
     def intersect_with(segment, segments, adjuster):
         """
         computes the intersection with the closest segments from segment
