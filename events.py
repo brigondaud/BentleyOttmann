@@ -122,6 +122,18 @@ class Events:
                     self.begin_points[inter_point].append[inter_segment]
                     self.end_points[inter_point].append[inter_segment]
 
+    def intersect_with(segment, segments, adjuster):
+        """
+        computes the intersection with the closest segments from segment
+        and returns a list of adjusted intersections with the segments involved
+        (including segment in the parameters)
+        """
+        # Searching for the current segment in the living segments
+        # and searching for its nearest neighbours
+        #TODO
+        pass
+        # returns ()
+
     def update_curent_point(self, event):
         """
         updates the global current point based on the points of the event
@@ -135,15 +147,6 @@ class Events:
         """
         #TODO
         pass
-
-def intersect_with(segment, segments, adjuster):
-    """
-    computes the intersection with the closest segments from segment
-    and returns a list of adjusted intersections with the segments involved
-    (including segment in the parameters)
-    """
-    #TODO
-    pass
 
 def events_init_test():
     """
