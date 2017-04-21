@@ -65,7 +65,6 @@ class Events:
         """
         creates two event for the segment
         """
-        #FIXME: the points that corresponds to a common event does not work
         # Creating the events for the segment
         event_creation = Event(CREATION, segment.endpoints[1])
         event_destruction = Event(DESTRUCTION, segment.endpoints[0])
@@ -74,14 +73,13 @@ class Events:
         if event_creation.key in self.begin_points:
             # if the beginning point alreay exists
             self.begin_points[event_creation.key].append(segment)
-            print("appending")
         else:
-            self.begin_points[event_creation] = [segment]
-            print("new")
+            self.begin_points[event_creation.key] = [segment]
+
         if event_destruction.key in self.end_points:
             self.end_points[event_destruction.key].append(segment)
         else:
-            self.end_points[event_destruction] = [segment]
+            self.end_points[event_destruction.key] = [segment]
 
         # Add the two events in the events structure
         self.event_list.add(event_creation)
@@ -147,6 +145,11 @@ def events_init_test():
                      Segment([Point([-3.0, -4.0]), Point([3.0, -4.0])]),
                      Segment([Point([-3.0, -4.0]), Point([2.0, 4.0])])])
     print(events)
+    print(events.begin_points, "begin points\n")
+    print(events.end_points, "end_points\n")
+    print("printing the type of each key")
+    for key in events.begin_points:
+        print(type(key))
     print("-----------------------------------------\n")
 
 if __name__ == "__main__":
