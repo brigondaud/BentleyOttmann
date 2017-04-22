@@ -99,8 +99,8 @@ class Events:
 
         for segment in self.end_points[event.key]:
             for inter_point, inter_segments in intersect_with(event, segment,
-                                                         living_segments,
-                                                         adjuster):
+                                                              living_segments,
+                                                              adjuster):
                 # if point not in the past
                 if inter_point < Segment.current_point:
                     # If the intersection does not exists
@@ -139,7 +139,7 @@ class Events:
         #TODO
         pass
 
-def intersect_with(event, segment, segments, adjuster):
+def intersect_with(event, segment, living_segments, adjuster):
     """
     computes the intersection with the closest segments from segment
     and iterates on the adjusted intersections with the segments involved
@@ -150,7 +150,7 @@ def intersect_with(event, segment, segments, adjuster):
     if event.type == INTERSECTION:
         # Can produce intersection that already exists
         pass
-    # returns ((point1, segment1), (point2, segment2),...)
+    # yields on ((point1, segment1), (point2, segment2),...)
 
 def events_init_test():
     """
