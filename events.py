@@ -91,51 +91,39 @@ class Events:
         """
         return len(self.event_list) == 0
 
-    def finish_segments(self, event, living_segments, adjuster):
+    def finish_segments(self, event, events, living_segments, adjuster):
         """
         finishes the segments on event
         """
         #TODO: add the computed intersection in the solution
 
         for segment in self.end_points[event.key]:
-            inter_point, inter_segments = intersect_with(segment,
-                                                        living_segments,
-                                                        adjuster)
-            # if point not in the past
-            if inter_point < Segment.current_point:
-                # If the intersection does not exists
-                if self.begin_points[inter_point] is None:
-                    # Creates the intersection event and add it to the
-                    # hashtables of segments
-                    events.event_list.add(Event(INTERSECTION, inter_point))
+            for inter_point, inter_segments in intersect_with(event, segment,
+                                                         living_segments,
+                                                         adjuster):
+                # if point not in the past
+                if inter_point < Segment.current_point:
+                    # If the intersection does not exists
+                    if self.begin_points[inter_point] is None:
+                        # Creates the intersection event and add it to the
+                        # hashtables of segments
+                        events.event_list.add(Event(INTERSECTION, inter_point))
 
-                    # Creates the entry in the hastable
-                    self.begin_points[inter_point] = []
-                    self.end_points[inter_point] = []
+                        # Creates the entry in the hastable
+                        self.begin_points[inter_point] = []
+                        self.end_points[inter_point] = []
 
-                # Adds the segment to the hashtable with the computed intersection
-                self.begin_points[inter_point].append(segment)
-                self.end_points[inter_point].append(segment)
+                        # Adds the segment to the hashtable with the computed intersection
+                        self.begin_points[inter_point].append(segment)
+                        self.end_points[inter_point].append(segment)
 
-                # Adds the segment in intersections with segment
-                for inter_segment in inter_segments:
-                    self.begin_points[inter_point].append[inter_segment]
-                    self.end_points[inter_point].append[inter_segment]
+                    # Adds the segment in intersections with segment
+                    for inter_segment in inter_segments:
+                        self.begin_points[inter_point].append(inter_segment)
+                        self.end_points[inter_point].append(inter_segment)
 
-        # Removing the current segment from the living segment
-        living_segments.pop(segment)
-
-    def intersect_with(segment, segments, adjuster):
-        """
-        computes the intersection with the closest segments from segment
-        and returns a list of adjusted intersections with the segments involved
-        (including segment in the parameters)
-        """
-        # Searching for the current segment in the living segments
-        # and searching for its nearest neighbours
-        #TODO
-        pass
-        # returns ()
+            # Removing the current segment from the living segment
+            living_segments.pop(segment)
 
     def update_curent_point(self, event):
         """
@@ -150,6 +138,19 @@ class Events:
         """
         #TODO
         pass
+
+def intersect_with(event, segment, segments, adjuster):
+    """
+    computes the intersection with the closest segments from segment
+    and iterates on the adjusted intersections with the segments involved
+    """
+    # Searching for the current segment in the living segments
+    # and searching for its nearest neighbours
+    #TODO
+    if event.type == INTERSECTION:
+        # Can produce intersection that already exists
+        pass
+    # returns ((point1, segment1), (point2, segment2),...)
 
 def events_init_test():
     """
