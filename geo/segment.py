@@ -26,12 +26,14 @@ class Segment:
         intersection = segment1.intersection_with(segment2)
 
     """
+    # Class attribute for the current point
+    current_point = None
+
     def __init__(self, points):
         """
         create a segment from an array of two points.
         """
         self.endpoints = points
-        self.current_point = None
 
     def __lt__(self, other):
         """
