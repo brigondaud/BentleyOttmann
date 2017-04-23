@@ -98,11 +98,11 @@ class Events:
         #TODO: add the computed intersection in the solution
 
         for segment in self.end_points[event.key]:
-            for inter_point, inter_segments in intersect_with(event, segment,
+            for inter_point, inter_segment in intersect_with(event, segment,
                                                               living_segments,
                                                               adjuster):
                 # if point not in the past
-                if inter_point < Segment.current_point:
+                if inter_point > Segment.current_point:
                     # If the intersection does not exists
                     if self.begin_points[inter_point] is None:
                         # Creates the intersection event and add it to the
@@ -118,7 +118,9 @@ class Events:
                         self.end_points[inter_point].append(segment)
 
                     # Adds the segment in intersections with segment
-                    for inter_segment in inter_segments:
+                    #FIXME: there's only one segment !
+                    #FIXME: add the segment if the current point exists ?
+                    for inter_segment in inter_segment:
                         self.begin_points[inter_point].append(inter_segment)
                         self.end_points[inter_point].append(inter_segment)
 
