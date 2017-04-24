@@ -150,6 +150,7 @@ def intersect_with(event, segment, living_segments, adjuster):
         pass
     if event.type == INTERSECTION:
         # Can produce intersection that already exists
+        #TODO
         pass
     # yields on ((point1, segment1), (point2, segment2),...)
 
@@ -158,10 +159,10 @@ def neighbours(segment, segments):
     yields the neighbour segments of segment in segments
     """
     segment_index = segments.index(segment)
-    if segment_index > 0:
-        yield segments[segment_index - 1]
     if segment_index < len(segments)-1:
         yield segments[segment_index + 1]
+    if segment_index > 0:
+        yield segments[segment_index - 1]
 
 def events_init_test():
     """
