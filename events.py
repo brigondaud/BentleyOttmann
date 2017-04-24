@@ -187,6 +187,7 @@ def intersection_test():
     seg2 = Segment([Point([1,0]), Point([1, 2])])
     events = Events([seg1, seg2])
     print("events:", events)
+    #TODO: make a current point in order to add seg1 and seg2
     living_segments = SortedList()
     living_segments.add(seg1)
     living_segments.add(seg2)
@@ -197,8 +198,6 @@ def intersection_test():
                                  segment,
                                 living_segments,
                                 None))
-
-
 
     print("-----------------------------------------\n")
 
