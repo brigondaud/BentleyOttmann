@@ -193,7 +193,10 @@ def intersection_test():
     while not events.isempty():
         current_event = events.event_list.pop(0)
         for segment in events.begin_points[current_event.key]:
-            print(intersect_with(current_event, segment, living_segments, None))
+            print(intersect_with(current_event,
+                                 segment,
+                                living_segments,
+                                None))
 
 
 
