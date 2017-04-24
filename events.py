@@ -147,12 +147,14 @@ def intersect_with(event, segment, living_segments, adjuster):
     # Searching for the current segment in the living segments
     # and searching for its nearest neighbours
     for neighbour in neighbours(segment, living_segments):
-        pass
+        inter_point = segment.intersection_with(neighbour)
+        # if there's an intersection
+        if inter_point is not None:
+            yield inter_point, neighbour
     if event.type == INTERSECTION:
         # Can produce intersection that already exists
         #TODO
         pass
-    # yields on ((point1, segment1), (point2, segment2),...)
 
 def neighbours(segment, segments):
     """
