@@ -132,7 +132,7 @@ class Events:
         #TODO
         pass
 
-    def begin_segments(self, event, segments):
+    def begin_segments(self, event, segments, adjuster):
         """
         begins the segments on event
         """
@@ -187,7 +187,7 @@ def intersection_test():
     seg2 = Segment([Point([1,0]), Point([1, 2])])
     events = Events([seg1, seg2])
     print("events:", events)
-    #TODO: make a current point in order to add seg1 and seg2
+    Segment.current_point = Point([2.0, 2.0])
     living_segments = SortedList()
     living_segments.add(seg1)
     living_segments.add(seg2)
