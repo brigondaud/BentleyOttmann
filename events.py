@@ -117,12 +117,10 @@ class Events:
                         self.begin_points[inter_point].append(segment)
                         self.end_points[inter_point].append(segment)
 
-                    # Adds the segment in intersections with segment
-                    #FIXME: there's only one segment !
+                    # Adds the segment in intersection with segment
                     #FIXME: add the segment if the current point exists ?
-                    for inter_segment in inter_segment:
-                        self.begin_points[inter_point].append(inter_segment)
-                        self.end_points[inter_point].append(inter_segment)
+                    self.begin_points[inter_point].append(inter_segment)
+                    self.end_points[inter_point].append(inter_segment)
 
             # Removing the current segment from the living segment
             living_segments.pop(segment)
