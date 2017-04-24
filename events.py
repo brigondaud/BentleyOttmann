@@ -4,7 +4,7 @@ Events module
 contains the Event object and the Events container.
 """
 
-from sortedcontainers import SortedListWithKey
+from sortedcontainers import SortedList, SortedListWithKey
 from geo.point import Point
 from geo.segment import Segment
 
@@ -150,6 +150,7 @@ def intersect_with(event, segment, living_segments, adjuster):
         inter_point = segment.intersection_with(neighbour)
         # if there's an intersection
         if inter_point is not None:
+            #TODO: adjuster !
             yield inter_point, neighbour
     if event.type == INTERSECTION:
         # Can produce intersection that already exists
@@ -177,8 +178,30 @@ def events_init_test():
     print(events)
     print("-----------------------------------------\n")
 
+def intersection_test():
+    """
+    test the intersection on basic cases with one or two neighbours
+    """
+    print("\n---------Intersection neighbour test---------")
+    seg1 = Segment([Point([0, 0]), Point([2, 2])])
+    seg2 = Segment([Point([1,0]), Point([1, 2])])
+    events = Events([seg1, seg2])
+    print("events:", events)
+    living_segments = SortedList()
+    living_segments.add(seg1)
+    living_segments.add(seg2)
+    while not events.isempty():
+        current_event = events.event_list.pop(0)
+        for segment in events.begin_points[current_event.key]:
+            print(intersect_with(current_event, segment, living_segments, None))
+
+
+
+    print("-----------------------------------------\n")
+
 if __name__ == "__main__":
     """
     run the tests sequence
     """
     events_init_test()
+    intersection_test()
