@@ -113,12 +113,12 @@ class Events:
                         self.begin_points[inter_point] = []
                         self.end_points[inter_point] = []
 
+                    # if the intersection point already exists and if the
+                    # current segment is involved => it is already in *_points
+                    if segment not in self.begin_points[inter_point]:
                         # Adds the segment to the hashtable with the computed intersection
                         self.begin_points[inter_point].append(segment)
                         self.end_points[inter_point].append(segment)
-
-                    # Adds the segment in intersection with segment
-                    #FIXME: add the segment if the current point exists ?
                     self.begin_points[inter_point].append(inter_segment)
                     self.end_points[inter_point].append(inter_segment)
 
