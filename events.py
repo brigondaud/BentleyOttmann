@@ -106,14 +106,20 @@ class Events:
             # Removing the current segment from the living segment
             living_segments.pop(segment)
 
-    def begin_segments(self, event, segments, adjuster):
+    def begin_segments(self, event, living_segments, adjuster):
         """
         begins the segments on event
         """
         #TODO: add the coputed intersection to the solution
 
         for segment in self.begin_points[event.key]:
-            pass
+            # Adds the segment to the living segments
+            living_segments.add(segment)
+            # Checks the intersection with the added segment
+            self.check_intersection(event, segment,
+                                    living_segments,
+                                    adjuster)
+
 
     def check_intersection(self, event, segment, segments, adjuster):
         """
@@ -204,7 +210,7 @@ def intersection_test():
 
     while not events.isempty():
         current_event = events.event_list.pop(0)
-        print("current event: ", current_event.key)
+        print("\ncurrent event: ", current_event.key)
         if current_event.key in events.begin_points:
             for segment in events.begin_points[current_event.key]:
                 print("segment étudié :", segment)
