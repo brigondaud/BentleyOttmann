@@ -57,7 +57,7 @@ class Segment:
         point2 = self.endpoints[1]
         constante = pi
 
-        diff = point2[0] - point1[0]
+        diff = point2.coordinates[0] - point1.coordinates[0]
         if diff == 0:
             return (current_point.coordinates[0], pi/2)
         if diff < 0:
