@@ -34,11 +34,13 @@ def bentley_ottmann(segments, adjuster, solution):
     Segment.current_point = None
     while not events.isempty():
         # getting the first event in the events list
+        print("\n==========FINISH STEP==========\n")
         current_event = events.event_list.pop(0)
 
         #finishing the segments which begin on the current event
         events.finish_segments(current_event, living_segments, adjuster, solution)
 
+        print("\n==========BEGIN STEP==========\n")
         #updating the global current point
         Segment.current_point = current_event.key
 
