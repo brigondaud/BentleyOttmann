@@ -4,7 +4,6 @@ Events module
 contains the Event object and the Events container.
 """
 
-import sys
 from sortedcontainers import SortedList, SortedListWithKey
 from geo.point import Point
 from geo.segment import Segment
@@ -168,6 +167,7 @@ def neighbours(segment, segments):
     """
     print("liste des segments vivants: ", segments)
     # segment_index = segments.index(segment)
+    #TODO: debugg the index with minus sign on the angle to replace naive search
     for index, seg in enumerate(segments):
         if seg is segment:
             segment_index = index
