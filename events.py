@@ -205,12 +205,13 @@ def intersection_test():
     while not events.isempty():
         current_event = events.event_list.pop(0)
         print("current event: ", current_event.key)
-        for segment in events.begin_points[current_event.key]:
-            print("segment étudié :", segment)
-            print([ p for p in intersect_with(current_event,
-                                 segment,
-                                 living_segments,
-                                 CoordinatesHash())])
+        if current_event.key in events.begin_points:
+            for segment in events.begin_points[current_event.key]:
+                print("segment étudié :", segment)
+                print([ p for p in intersect_with(current_event,
+                                     segment,
+                                     living_segments,
+                                     CoordinatesHash())])
 
     print("-----------------------------------------\n")
 
