@@ -23,6 +23,9 @@ def bentley_ottmann(segments, adjuster):
     segments and ajuster.
     the intesections are given for each segments.
     """
+    # The solution is a hashtable that associates all the intersections for
+    # a given segment
+    solution = dict()
     # adds all the creation and destruction events for the given segments
     events = Events(segments)
     # creates the structure for the 'alive' segments:
