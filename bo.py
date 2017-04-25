@@ -57,6 +57,9 @@ def test(filename):
     events = bentley_ottmann(segments, adjuster, solution)
     tycat(segments)
     print(events)
+    tycat(solution.segments(), solution.intersection_points())
+
+
     #TODO: merci de completer et de decommenter les lignes suivantes
     #results = lancer bentley ottmann sur les segments et l'ajusteur
     #...

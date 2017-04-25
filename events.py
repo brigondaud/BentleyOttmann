@@ -97,16 +97,20 @@ class Events:
         finishes the segments on event
         """
         for segment in self.end_points[event.key]:
-            neighbours = list(neighbours(segment, living_segments))
-            if len(neighbours) == 2:
-                inter_point = neighbours[0].intersection_with(neighbours[1])
+            neighbour_list = list(neighbours(segment, living_segments))
+            if len(neighbour_list) == 2:
+                inter_point = neighbour_list[0].intersection_with(neighbour_list[1])
                 if inter_point is not None:
                     inter_point = adjuster.hash_point(inter_point)
                     if self.begin_points[inter_point] is None:
                         self.add_intersection(inter_point)
+
+                        #Adding the solutions
+                        for segment in neighbour_list:
+                            solution.add(segment, inter_point)
+
             # Removing the current segment from the living segment
             living_segments.pop(segment)
-
 
     def begin_segments(self, event, living_segments, adjuster, solution):
         """
@@ -115,7 +119,12 @@ class Events:
         #TODO: add the coputed intersection to the solution
 
         for segment in self.begin_points[event.key]:
-            pass
+            # Adds the segment to the living segments
+            # Checks the intersection with the added segment
+            living_segments.add(segment)
+            self.check_intersection(event, segment,
+                                    living_segments,
+                                    adjuster, solution)
 
     def add_intersection(self, inter_point):
         """
@@ -130,10 +139,9 @@ class Events:
         self.end_points[inter_point] = []
 
 
-
-    def check_intersection(self, event, segment, segments, adjuster):
+    def check_intersection(self, event, segment, segments, adjuster, solution):
         """
-        check intersection
+        check intersection for one segment and the living segments
         """
         for inter_point, inter_segment in intersect_with(event, segment,
                                                          segments,
@@ -152,6 +160,10 @@ class Events:
                     self.end_points[inter_point].append(segment)
                 self.begin_points[inter_point].append(inter_segment)
                 self.end_points[inter_point].append(inter_segment)
+
+                # Adding the solution
+                solution.add(inter_segment, inter_point)
+                solution.add(segment, inter_point)
 
 def intersect_with(event, segment, living_segments, adjuster):
     """
@@ -218,10 +230,10 @@ def intersection_test():
         if current_event.key in events.begin_points:
             for segment in events.begin_points[current_event.key]:
                 print("segment étudié :", segment)
-                print([ p for p in intersect_with(current_event,
-                                     segment,
-                                     living_segments,
-                                     CoordinatesHash())])
+                print([p for p in intersect_with(current_event,
+                                                 segment,
+                                                 living_segments,
+                                                 CoordinatesHash())])
 
     print("-----------------------------------------\n")
 
