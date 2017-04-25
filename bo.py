@@ -18,15 +18,12 @@ CREATION = 0
 DESTRUCTION = 1
 INTERSECTION = 2
 
-def bentley_ottmann(segments, adjuster):
+def bentley_ottmann(segments, adjuster, solution):
     """
     computes and returns the result of the bentley ottmann algorithm for the given
     segments and ajuster.
     the intesections are given for each segments.
     """
-    # Initializes the solution for the segments
-    solution = Solution(segments)
-
     # adds all the creation and destruction events for the given segments
     events = Events(segments)
 
@@ -55,7 +52,9 @@ def test(filename):
     run bentley ottmann
     """
     adjuster, segments = load_segments(filename)
-    events = bentley_ottmann(segments, adjuster)
+    # Initializes the solution for the segments
+    solution = Solution(segments)
+    events = bentley_ottmann(segments, adjuster, solution)
     tycat(segments)
     print(events)
     #TODO: merci de completer et de decommenter les lignes suivantes
