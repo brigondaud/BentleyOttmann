@@ -45,8 +45,6 @@ def bentley_ottmann(segments, adjuster, solution):
         #beginning the segments which start from the current_event
         events.begin_segments(current_event, living_segments, adjuster, solution)
 
-    return events #debugg
-
 def test(filename):
     """
     run bentley ottmann
@@ -54,9 +52,8 @@ def test(filename):
     adjuster, segments = load_segments(filename)
     # Initializes the solution for the segments
     solution = Solution(segments)
-    events = bentley_ottmann(segments, adjuster, solution)
+    bentley_ottmann(segments, adjuster, solution)
     tycat(segments)
-    print(events)
     tycat(solution.segments(), solution.intersection_points())
 
 
