@@ -99,8 +99,8 @@ class Events:
 
         for segment in self.end_points[event.key]:
             for inter_point, inter_segment in intersect_with(event, segment,
-                                                              living_segments,
-                                                              adjuster):
+                                                             living_segments,
+                                                             adjuster):
                 # if point not in the past
                 if inter_point >= Segment.current_point:
                     # If the intersection does not exists
@@ -124,13 +124,6 @@ class Events:
 
             # Removing the current segment from the living segment
             living_segments.pop(segment)
-
-    def update_curent_point(self, event):
-        """
-        updates the global current point based on the points of the event
-        """
-        #TODO
-        pass
 
     def begin_segments(self, event, segments, adjuster):
         """
@@ -184,7 +177,7 @@ def intersection_test():
     """
     print("\n---------Intersection neighbour test---------")
     seg1 = Segment([Point([0, 0]), Point([2, 2])])
-    seg2 = Segment([Point([1,0]), Point([1, 2])])
+    seg2 = Segment([Point([1, 0]), Point([1, 2])])
     events = Events([seg1, seg2])
     print("events:", events)
 
@@ -198,8 +191,8 @@ def intersection_test():
         for segment in events.begin_points[current_event.key]:
             print(intersect_with(current_event,
                                  segment,
-                                living_segments,
-                                None))
+                                 living_segments,
+                                 None))
 
     print("-----------------------------------------\n")
 
