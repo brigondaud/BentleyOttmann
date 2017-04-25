@@ -4,7 +4,6 @@ Events module
 contains the Event object and the Events container.
 """
 
-import sys
 from sortedcontainers import SortedList, SortedListWithKey
 from geo.point import Point
 from geo.segment import Segment
@@ -180,9 +179,10 @@ def intersection_is_correct(point, segment):
     # if horizontal segment, the intersection on current event is correct
     elif point.coordinates[1] == Segment.current_point.coordinates[1]:
         #FIXME
-        if segment.endpoints[1].coordinates[1] - segment.endpoints[0].coordinates[1] == 0:
+        # if segment.endpoints[1].coordinates[1] - segment.endpoints[0].coordinates[1] == 0:
+        if segment.compute_key(Segment.current_point)[1] == 0:
             return True
-
+    print("False")
     return False
 
 def intersect_with(event, segment, living_segments, adjuster):
