@@ -150,7 +150,7 @@ def intersect_with(event, segment, living_segments, adjuster):
         inter_point = segment.intersection_with(neighbour)
         # if there's an intersection
         if inter_point is not None:
-            #TODO: adjuster !
+            inter_point = adjuster.hash_point(inter_point)
             yield inter_point, neighbour
     if event.type == INTERSECTION:
         # Can produce intersection that already exists
