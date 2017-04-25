@@ -105,13 +105,14 @@ class Events:
                     inter_point = neighbour_list[0].intersection_with(neighbour_list[1])
                     print("found two neighbours which intersects !")
                     if inter_point is not None:
-                        inter_point = adjuster.hash_point(inter_point)
-                        if inter_point not in self.begin_points:
-                            self.add_intersection(inter_point)
+                        if intersection_is_correct(inter_point, neighbour_list[0]):
+                            inter_point = adjuster.hash_point(inter_point)
+                            if inter_point not in self.begin_points:
+                                self.add_intersection(inter_point)
 
-                            #Adding the solutions
-                            for segment in neighbour_list:
-                                solution.add(segment, inter_point)
+                                #Adding the solutions
+                                for segment in neighbour_list:
+                                    solution.add(segment, inter_point)
 
                 # Removing the current segment from the living segment
                 living_segments.discard(segment)
@@ -152,7 +153,7 @@ class Events:
                                                          adjuster):
             print("checking for correct intersections...")
             # if point not in the past
-            if inter_point.coordinates[1] < Segment.current_point.coordinates[1]:
+            if intersection_is_correct(inter_point, segment):
                 print("correct intersection found !")
                 # If the intersection does not exists
                 if inter_point not in self.begin_points:
@@ -170,6 +171,21 @@ class Events:
                 # Adding the solution
                 solution.add(inter_segment, inter_point)
                 solution.add(segment, inter_point)
+
+def intersection_is_correct(point, segment):
+    """
+    check if an intersection is correct
+    """
+    #if point not in the past
+    if point.coordinates[1] < Segment.current_point.coordinates[1]:
+        return True
+
+    # if horizontal segment, the intersection on current event is correct
+    elif point.coordinates[1] == Segment.current_point.coordinates[1]:
+        if segment.endpoints[1].coordinates[1] - segment.endpoints[0].coordinates[1] == 0:
+            return True
+
+    return False
 
 def intersect_with(event, segment, living_segments, adjuster):
     """
