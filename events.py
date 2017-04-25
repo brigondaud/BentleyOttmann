@@ -150,7 +150,7 @@ class Events:
             # if point not in the past
             if inter_point.coordinates[1] < Segment.current_point.coordinates[1]:
                 # If the intersection does not exists
-                if self.begin_points[inter_point] is None:
+                if inter_point not in self.begin_points:
                     self.add_intersection(inter_point)
 
                 # if the intersection point already exists and if the
