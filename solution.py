@@ -45,12 +45,12 @@ class Solution:
         iterates on all the intersections point once
         """
         # Final set with all the points
-        points = set(point for point in self.points(segment) for segment in self.hashtable)
-        # # fills the set with all the intersection points
-        # for segment in self.hashtable:
-        #     for point in self.hashtable[segment]:
-        #         points.add(point)
-        # # iterates on the intersection points
+        points = set()
+        # fills the set with all the intersection points
+        for segment in self.hashtable:
+            for point in self.hashtable[segment]:
+                points.add(point)
+        # iterates on the intersection points
         for inter_point in points:
             yield inter_point
 
