@@ -116,6 +116,8 @@ class Events:
 
                 # Removing the current segment from the living segment
                 living_segments.discard(segment)
+                print("Removed from the living segment: ", segment)
+
     def begin_segments(self, event, living_segments, adjuster, solution):
         """
         begins the segments on event
@@ -126,6 +128,7 @@ class Events:
                 # Adds the segment to the living segments
                 # Checks the intersection with the added segment
                 living_segments.add(segment)
+                print("Adding to the living segment: ", segment)
                 print("begin on event: checking intersections... ", event.key)
                 self.check_intersection(event, segment,
                                         living_segments,
@@ -212,9 +215,11 @@ def neighbours(segment, segments):
     # segment_index = segments.index(segment)
     #TODO: debugg the index with minus sign on the angle to replace naive search
 
+    print("Looking for {} in living segments".format(segment))
     for index, seg in enumerate(segments):
         if seg is segment:
             segment_index = index
+            print("Segment found in living segment !")
     if segment_index < len(segments)-1:
         yield segments[segment_index + 1]
     if segment_index > 0:
