@@ -97,11 +97,13 @@ class Events:
         finishes the segments on event
         """
         # if segments are finishing on the current event
+        print("finish on event: checking for the intersections around")
         if event.key in self.end_points:
             for segment in self.end_points[event.key]:
                 neighbour_list = list(neighbours(segment, living_segments))
                 if len(neighbour_list) == 2:
                     inter_point = neighbour_list[0].intersection_with(neighbour_list[1])
+                    print("found two neighbours which intersects !")
                     if inter_point is not None:
                         inter_point = adjuster.hash_point(inter_point)
                         if inter_point not in self.begin_points:
@@ -123,6 +125,7 @@ class Events:
                 # Adds the segment to the living segments
                 # Checks the intersection with the added segment
                 living_segments.add(segment)
+                print("begin on event: checking intersections... ", event.key)
                 self.check_intersection(event, segment,
                                         living_segments,
                                         adjuster, solution)
@@ -147,8 +150,10 @@ class Events:
         for inter_point, inter_segment in intersect_with(event, segment,
                                                          segments,
                                                          adjuster):
+            print("checking for correct intersections...")
             # if point not in the past
             if inter_point.coordinates[1] < Segment.current_point.coordinates[1]:
+                print("correct intersection found !")
                 # If the intersection does not exists
                 if inter_point not in self.begin_points:
                     self.add_intersection(inter_point)
