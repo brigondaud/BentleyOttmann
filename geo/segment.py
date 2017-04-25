@@ -55,8 +55,7 @@ class Segment:
         assert current_point is not None
         point1 = self.endpoints[0]
         point2 = self.endpoints[1]
-        constante = pi
-
+        constante = 0.0   
         diff = point2.coordinates[0] - point1.coordinates[0]
         if diff == 0:
             return (current_point.coordinates[0], pi/2)
