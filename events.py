@@ -96,29 +96,39 @@ class Events:
         """
         finishes the segments on event
         """
-        #TODO: add the computed intersection in the solution
-        #FIXME: check for intersections between the left and right neighbours
-        # from the segment that has just beeen removed
         for segment in self.end_points[event.key]:
-            # Computes the intersections for each segment
-            self.check_intersection(event, segment, living_segments, adjuster)
-
+            neighbours = list(neighbours(segment, living_segments))
+            if len(neighbours) == 2:
+                inter_point = neighbours[0].intersection_with(neighbours[1])
+                if inter_point is not None:
+                    inter_point = adjuster.hash_point(inter_point)
+                    if self.begin_points[inter_point] is None:
+                        self.add_intersection(inter_point)
             # Removing the current segment from the living segment
             living_segments.pop(segment)
 
-    def begin_segments(self, event, living_segments, adjuster):
+    def begin_segments(self, event, segments, adjuster):
         """
         begins the segments on event
         """
         #TODO: add the coputed intersection to the solution
 
         for segment in self.begin_points[event.key]:
-            # Adds the segment to the living segments
-            living_segments.add(segment)
-            # Checks the intersection with the added segment
-            self.check_intersection(event, segment,
-                                    living_segments,
-                                    adjuster)
+            pass
+
+    def add_intersection(self, inter_point):
+        """
+        Adds the intersection point in the events.
+        """
+        # If the intersection does not exists
+        # Creates the intersection event and add it to the
+        # hashtables of segments
+        self.event_list.add(Event(INTERSECTION, inter_point))
+        # Creates the entry in the hastable
+        self.begin_points[inter_point] = []
+        self.end_points[inter_point] = []
+
+
 
     def check_intersection(self, event, segment, segments, adjuster):
         """
@@ -131,13 +141,7 @@ class Events:
             if inter_point > Segment.current_point:
                 # If the intersection does not exists
                 if self.begin_points[inter_point] is None:
-                    # Creates the intersection event and add it to the
-                    # hashtables of segments
-                    self.event_list.add(Event(INTERSECTION, inter_point))
-
-                    # Creates the entry in the hastable
-                    self.begin_points[inter_point] = []
-                    self.end_points[inter_point] = []
+                    self.add_intersection(inter_point)
 
                 # if the intersection point already exists and if the
                 # current segment is involved => it is already in *_points
@@ -209,7 +213,7 @@ def intersection_test():
 
     while not events.isempty():
         current_event = events.event_list.pop(0)
-        print("\ncurrent event: ", current_event.key)
+        print("current event: ", current_event.key)
         if current_event.key in events.begin_points:
             for segment in events.begin_points[current_event.key]:
                 print("segment étudié :", segment)
