@@ -64,8 +64,6 @@ class Segment:
         return (current_point.coordinates[0], constante + \
             atan((point2.coordinates[1] - point1.coordinates[1])/(diff)))
 
-
-
     def copy(self):
         """
         return duplicate of given segment (no shared points with original,

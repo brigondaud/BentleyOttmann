@@ -12,6 +12,7 @@ from sortedcontainers import SortedList
 from geo.segment import Segment, load_segments
 from geo.tycat import tycat
 from events import Events
+from solution import Solution
 
 CREATION = 0
 DESTRUCTION = 1
@@ -23,8 +24,12 @@ def bentley_ottmann(segments, adjuster):
     segments and ajuster.
     the intesections are given for each segments.
     """
+    # Initializes the solution for the segments
+    solution = Solution(segments)
+
     # adds all the creation and destruction events for the given segments
     events = Events(segments)
+
     # creates the structure for the 'alive' segments:
     # the structure contains a list with the segment and it's key
     #TODO: compute the optimal load for living segments
@@ -35,13 +40,13 @@ def bentley_ottmann(segments, adjuster):
         current_event = events.event_list.pop(0)
 
         #finishing the segments which begin on the current event
-        events.finish_segments(current_event, living_segments, adjuster)
+        events.finish_segments(current_event, living_segments, adjuster, solution)
 
         #updating the global current point
         Segment.current_point = current_event.key
 
         #beginning the segments which start from the current_event
-        events.begin_segments(current_event, living_segments, adjuster)
+        events.begin_segments(current_event, living_segments, adjuster, solution)
 
     return events #debugg
 
