@@ -55,6 +55,11 @@ def test(filename):
     bentley_ottmann(segments, adjuster, solution)
     tycat(segments)
     tycat(solution.segments(), solution.intersection_points())
+    print("==========INTERSECTIONS==========")
+    for segment in solution.hashtable:
+        print("{} : {}".format(segment,
+                               str([p for p in solution.points(segment)])
+                              ))
 
 
     #TODO: merci de completer et de decommenter les lignes suivantes

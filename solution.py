@@ -50,8 +50,8 @@ class Solution:
         for segment in self.hashtable:
             for point in self.hashtable[segment]:
                 points.add(point)
-        # iterates on the intersection points
         for inter_point in points:
+            # iterates on the intersection points
             yield inter_point
 
     def draw(self):
