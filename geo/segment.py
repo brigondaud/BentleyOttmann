@@ -62,7 +62,8 @@ class Segment:
             return (current_point.coordinates[0], pi/2)
         if diff < 0:
             constante = pi
-        return (current_point.coordinates[0], constante + atan((point2[1] - point1[1])/(diff)))
+        return (current_point.coordinates[0], constante + \
+            atan((point2.coordinates[1] - point1.coordinates[1])/(diff)))
 
 
 
