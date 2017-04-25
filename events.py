@@ -92,7 +92,7 @@ class Events:
         """
         return len(self.event_list) == 0
 
-    def finish_segments(self, event, living_segments, adjuster):
+    def finish_segments(self, event, living_segments, adjuster, solution):
         """
         finishes the segments on event
         """
@@ -106,7 +106,7 @@ class Events:
             # Removing the current segment from the living segment
             living_segments.pop(segment)
 
-    def begin_segments(self, event, living_segments, adjuster):
+    def begin_segments(self, event, living_segments, adjuster, solution):
         """
         begins the segments on event
         """
