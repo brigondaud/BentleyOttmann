@@ -97,7 +97,7 @@ class Events:
         finishes the segments on event
         """
         # if segments are finishing on the current event
-        print("finish on event: checking for the intersections around")
+        print("finish on event: checking for the intersections around...", event.key)
         if event.key in self.end_points:
             for segment in self.end_points[event.key]:
                 neighbour_list = list(neighbours(segment, living_segments))
