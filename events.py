@@ -120,7 +120,6 @@ class Events:
                                     living_segments,
                                     adjuster)
 
-
     def check_intersection(self, event, segment, segments, adjuster):
         """
         check intersection
