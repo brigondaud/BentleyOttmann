@@ -104,7 +104,7 @@ class Events:
                     inter_point = neighbour_list[0].intersection_with(neighbour_list[1])
                     if inter_point is not None:
                         inter_point = adjuster.hash_point(inter_point)
-                        if self.begin_points[inter_point] is None:
+                        if inter_point not in self.begin_points:
                             self.add_intersection(inter_point)
 
                             #Adding the solutions
