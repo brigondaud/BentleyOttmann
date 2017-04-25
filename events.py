@@ -214,16 +214,18 @@ def neighbours(segment, segments):
     """
     # segment_index = segments.index(segment)
     #TODO: debugg the index with minus sign on the angle to replace naive search
-
     print("Looking for {} in living segments".format(segment))
+    print("\nLiving segments: ", segments, "\n")
+    segment_index = None
     for index, seg in enumerate(segments):
         if seg is segment:
             segment_index = index
             print("Segment found in living segment !")
-    if segment_index < len(segments)-1:
-        yield segments[segment_index + 1]
-    if segment_index > 0:
-        yield segments[segment_index - 1]
+    if segment_index is not None:
+        if segment_index < len(segments)-1:
+            yield segments[segment_index + 1]
+        if segment_index > 0:
+            yield segments[segment_index - 1]
 
 def events_init_test():
     """
