@@ -56,7 +56,6 @@ class Segment:
 
 
 
-
     def copy(self):
         """
         return duplicate of given segment (no shared points with original,
