@@ -102,7 +102,7 @@ class Events:
                                                               living_segments,
                                                               adjuster):
                 # if point not in the past
-                if inter_point > Segment.current_point:
+                if inter_point >= Segment.current_point:
                     # If the intersection does not exists
                     if self.begin_points[inter_point] is None:
                         # Creates the intersection event and add it to the
@@ -187,10 +187,12 @@ def intersection_test():
     seg2 = Segment([Point([1,0]), Point([1, 2])])
     events = Events([seg1, seg2])
     print("events:", events)
+
     Segment.current_point = Point([2.0, 2.0])
     living_segments = SortedList()
     living_segments.add(seg1)
     living_segments.add(seg2)
+
     while not events.isempty():
         current_event = events.event_list.pop(0)
         for segment in events.begin_points[current_event.key]:
