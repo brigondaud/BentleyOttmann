@@ -7,6 +7,7 @@ contains the Event object and the Events container.
 from sortedcontainers import SortedList, SortedListWithKey
 from geo.point import Point
 from geo.segment import Segment
+from geo.coordinates_hash import CoordinatesHash
 
 CREATION = 0
 DESTRUCTION = 1
@@ -164,7 +165,12 @@ def neighbours(segment, segments):
     """
     yields the neighbour segments of segment in segments
     """
-    segment_index = segments.index(segment)
+    print("liste des segments vivants: ", segments)
+    # segment_index = segments.index(segment)
+    #TODO: debugg the index with minus sign on the angle to replace naive search
+    for index, seg in enumerate(segments):
+        if seg is segment:
+            segment_index = index
     if segment_index < len(segments)-1:
         yield segments[segment_index + 1]
     if segment_index > 0:
@@ -198,11 +204,13 @@ def intersection_test():
 
     while not events.isempty():
         current_event = events.event_list.pop(0)
+        print("current event: ", current_event.key)
         for segment in events.begin_points[current_event.key]:
-            print(intersect_with(current_event,
+            print("segment étudié :", segment)
+            print([ p for p in intersect_with(current_event,
                                  segment,
                                  living_segments,
-                                 None))
+                                 CoordinatesHash())])
 
     print("-----------------------------------------\n")
 
