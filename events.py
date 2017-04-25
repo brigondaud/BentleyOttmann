@@ -215,7 +215,6 @@ def neighbours(segment, segments):
     # segment_index = segments.index(segment)
     #TODO: debugg the index with minus sign on the angle to replace naive search
     print("Looking for {} in living segments".format(segment))
-    print("\nLiving segments: ", segments, "\n")
     segment_index = None
     for index, seg in enumerate(segments):
         if seg is segment:
