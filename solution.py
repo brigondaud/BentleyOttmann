@@ -1,6 +1,8 @@
 """
 Solution module for the Bentley Ottmann algorithm
 """
+from geo.tycat import tycat
+
 class Solution:
     """
     solution: associates to all the segment their intersection
@@ -42,5 +44,18 @@ class Solution:
         """
         iterates on all the intersections point once
         """
-        #TODO
-        pass
+        # Final set with all the points
+        points = set(point for point in self.points(segment) for segment in self.hashtable)
+        # # fills the set with all the intersection points
+        # for segment in self.hashtable:
+        #     for point in self.hashtable[segment]:
+        #         points.add(point)
+        # # iterates on the intersection points
+        for inter_point in points:
+            yield inter_point
+
+    def draw(self):
+        """
+        draws the segment and the intersection points
+        """
+        tycat(self.segments(), self.intersection_points())
