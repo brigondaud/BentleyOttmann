@@ -166,10 +166,11 @@ def neighbours(segment, segments):
     """
     yields the neighbour segments of segment in segments
     """
-    try:
-        segment_index = segments.index(segment)
-    except:
-        sys.exit("segment non trouvé dans les voisins : {}".format(segment))
+    print("liste des segments vivants: ", segments)
+    # segment_index = segments.index(segment)
+    for index, seg in enumerate(segments):
+        if seg is segment:
+            segment_index = index
     if segment_index < len(segments)-1:
         yield segments[segment_index + 1]
     if segment_index > 0:
@@ -203,6 +204,7 @@ def intersection_test():
 
     while not events.isempty():
         current_event = events.event_list.pop(0)
+        print("current event: ", current_event.key)
         for segment in events.begin_points[current_event.key]:
             print("segment étudié :", segment)
             print([ p for p in intersect_with(current_event,
