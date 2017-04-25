@@ -1,11 +1,11 @@
 """
 segment between two points.
 """
+from math import atan, pi
 import struct
 from geo.point import Point
 from geo.quadrant import Quadrant
 from geo.coordinates_hash import CoordinatesHash
-
 
 class Segment:
     """
@@ -52,7 +52,17 @@ class Segment:
 
         # Event during the first iteration, when a segment is added
         # to the living segment, the current point is not None
-        assert Segment.current_point is not None
+        assert current_point is not None
+        point1 = self.endpoints[0]
+        point2 = self.endpoints[1]
+        constante = pi
+
+        diff = point2[0] - point1[0]
+        if diff == 0:
+            return (current_point.coordinates[0], pi/2)
+        if diff < 0:
+            constante = pi
+        return (current_point.coordinates[0], constante + atan((point2[1] - point1[1])/(diff)))
 
 
 
