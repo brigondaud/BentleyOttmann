@@ -179,6 +179,7 @@ def intersection_is_correct(point, segment):
 
     # if horizontal segment, the intersection on current event is correct
     elif point.coordinates[1] == Segment.current_point.coordinates[1]:
+        #FIXME
         if segment.endpoints[1].coordinates[1] - segment.endpoints[0].coordinates[1] == 0:
             return True
 
@@ -217,8 +218,6 @@ def neighbours(segment, segments):
             yield segments[segment_index + 1]
         if segment_index > 0:
             yield segments[segment_index - 1]
-    else:
-        print("segment not alive")
 
 def events_init_test():
     """
