@@ -123,7 +123,6 @@ class Events:
                 # Adds the segment to the living segments
                 # Checks the intersection with the added segment
                 living_segments.add(segment)
-                print("\nchecking intersections...", event.key)
                 self.check_intersection(event, segment,
                                         living_segments,
                                         adjuster, solution)
@@ -148,11 +147,8 @@ class Events:
         for inter_point, inter_segment in intersect_with(event, segment,
                                                          segments,
                                                          adjuster):
-            print("\nIntersection point computed :")
-            print("\nChecking for correct intersection point")
             # if point not in the past
             if inter_point.coordinates[1] < Segment.current_point.coordinates[1]:
-                print("\ncorrect intersection point computed !")
                 # If the intersection does not exists
                 if self.begin_points[inter_point] is None:
                     self.add_intersection(inter_point)
@@ -194,6 +190,7 @@ def neighbours(segment, segments):
     """
     # segment_index = segments.index(segment)
     #TODO: debugg the index with minus sign on the angle to replace naive search
+
     for index, seg in enumerate(segments):
         if seg is segment:
             segment_index = index
