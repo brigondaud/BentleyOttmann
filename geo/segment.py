@@ -53,7 +53,7 @@ class Segment:
         # Event during the first iteration, when a segment is added
         # to the living segment, the current point is not None
         assert Segment.current_point is not None
-        
+
 
 
 
