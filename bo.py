@@ -48,7 +48,6 @@ def bentley_ottmann(segments, adjuster, solution):
 
         print("living segments: ", living_segments)
         print("Living: ", len(living_segments))
-        wait = input()
 
 
 def test(filename):
