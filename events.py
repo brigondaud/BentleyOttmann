@@ -103,17 +103,30 @@ class Events:
                 if len(neighbour_list) == 2:
                     inter_point = neighbour_list[0].intersection_with(neighbour_list[1])
                     if inter_point is not None:
-                        if intersection_is_correct(inter_point, neighbour_list[0]):
+                        if intersection_is_correct(inter_point, neighbour_list[0], neighbour_list[1]):
                             inter_point = adjuster.hash_point(inter_point)
                             if inter_point not in self.begin_points:
                                 self.add_intersection(inter_point)
+
+                                # Adding the neighbours in the intersection in the hashtables
+                                self.begin_points[inter_point].append(neighbour_list[0])
+                                self.begin_points[inter_point].append(neighbour_list[1])
+
+                                self.end_points[inter_point].append(neighbour_list[0])
+                                self.end_points[inter_point].append(neighbour_list[1])
 
                                 #Adding the solutions
                                 for segment in neighbour_list:
                                     solution.add(segment, inter_point)
 
                 # Removing the current segment from the living segment
-                living_segments.discard(segment)
+                # FIXME: discard not working
+                # living_segments.discard(segment)
+
+                for index, seg in enumerate(living_segments):
+                    if seg == segment:
+                        living_segments.pop(index)
+                        break
 
     def begin_segments(self, event, living_segments, adjuster, solution):
         """
@@ -151,7 +164,7 @@ class Events:
                                                          segments,
                                                          adjuster):
             # if point not in the past
-            if intersection_is_correct(inter_point, segment):
+            if intersection_is_correct(inter_point, segment, inter_segment):
                 # If the intersection does not exists
                 if inter_point not in self.begin_points:
                     self.add_intersection(inter_point)
@@ -169,21 +182,19 @@ class Events:
                 solution.add(inter_segment, inter_point)
                 solution.add(segment, inter_point)
 
-def intersection_is_correct(point, segment):
+def intersection_is_correct(point, seg1, seg2):
     """
     check if an intersection is correct
     """
     #if point not in the past
     if point.coordinates[1] < Segment.current_point.coordinates[1]:
-        print("test 1 success")
         return True
 
     # if horizontal segment, the intersection on current event is correct
     if point.coordinates[1] == Segment.current_point.coordinates[1]:
         #FIXME
         # if segment.endpoints[1].coordinates[1] - segment.endpoints[0].coordinates[1] == 0:
-        if segment.compute_key(Segment.current_point)[1] == 0:
-            print(segment.compute_key(Segment.current_point))
+        if seg1.compute_key(Segment.current_point)[1] == 0:
             return True
 
     return False

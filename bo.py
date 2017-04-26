@@ -39,6 +39,7 @@ def bentley_ottmann(segments, adjuster, solution):
             tycat(solution.segments(), solution.intersection_points())
             print("\n living segments: ", len(list(living_segments)))
         wait = input()
+
         # getting the first event in the events list
         current_event = events.event_list.pop(0)
 
@@ -50,7 +51,10 @@ def bentley_ottmann(segments, adjuster, solution):
 
         #beginning the segments which start from the current_event
         events.begin_segments(current_event, living_segments, adjuster, solution)
+
     print("living segments: ", living_segments)
+    print("Living: ", len(living_segments))
+
 
 def test(filename):
     """

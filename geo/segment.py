@@ -58,14 +58,17 @@ class Segment:
         point2 = self.endpoints[1]
         constante = 0.0
         diff = point2.coordinates[0] - point1.coordinates[0]
-        print("L'abs de la clé de {} est:".format(self))
-        print("\nABS:  ", point2.coordinates[0])
+        # epsilon = 1
+        # if current_point.coordinates[0] >= point2.coordinates[0]:
+        #     epsilon = -1
+        key_abs = sweep_intersection(self, current_point)
         if diff == 0:
-            return (point2.coordinates[0], pi/2)
+            return (key_abs, pi/2)
         if diff < 0:
             constante = pi
-        return (point2.coordinates[0], constante + \
+        return (key_abs, constante + \
             atan((point2.coordinates[1] - point1.coordinates[1])/(diff)))
+
 
     def copy(self):
         """
@@ -149,6 +152,21 @@ class Segment:
             repr(self.endpoints[1]) + "]"
 
 
+def sweep_intersection(segment, current_point):
+    """
+    computes and returns the abscissa of the intersection beetween the
+    sweeping line and the segment.
+    """
+    # Creates a segment that corresponds to the sweeping line around segment
+    sweep = Segment([Point([segment.endpoints[0].coordinates[0], current_point.coordinates[1]]),
+                     Point([segment.endpoints[1].coordinates[0], current_point.coordinates[1]])])
+    key_point = segment.intersection_with(sweep)
+
+    # The key_point is None if segment is horizontal
+    if key_point is not None:
+        return key_point.coordinates[0]
+    else:
+        return current_point.coordinates[0]
 def load_segments(filename):
     """
     loads given .bo file.
