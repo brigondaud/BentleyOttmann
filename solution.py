@@ -59,3 +59,9 @@ class Solution:
         draws the segment and the intersection points
         """
         tycat(self.segments(), self.intersection_points())
+
+    def draw_living(self, living):
+        """
+        draw the living segments on top of the normal draw
+        """
+        tycat(self.segments(), self.intersection_points(), living)
