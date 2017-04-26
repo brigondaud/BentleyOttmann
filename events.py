@@ -118,7 +118,11 @@ class Events:
         if event.key in self.end_points:
             for segment in self.end_points[event.key]:
                 neighbour_list = list(neighbours(segment, living_segments))
+                # print("segment: ", segment)
+                # print("his neightbours: ", neighbour_list)
                 if len(neighbour_list) == 2:
+                    # tycat(solution.segments(), Segment.current_point, living_segments, segment, neighbour_list)
+                    # input()
                     inter_point = neighbour_list[0].intersection_with(neighbour_list[1])
                     if inter_point is not None:
                         if intersection_is_correct(inter_point, neighbour_list[0], neighbour_list[1]):
@@ -145,10 +149,6 @@ class Events:
                     if seg == segment:
                         living_segments.pop(index)
                         break
-        # if Segment.current_point:
-            # solution.draw_step(living_segments, Segment.current_point)
-            # wait = input()
-
 
     def begin_segments(self, event, living_segments, adjuster, solution):
         """
