@@ -125,6 +125,7 @@ class Events:
                 # Adds the segment to the living segments
                 # Checks the intersection with the added segment
                 living_segments.add(segment)
+                print("liv_seg: ", living_segments)
                 self.check_intersection(event, segment,
                                         living_segments,
                                         adjuster, solution)
