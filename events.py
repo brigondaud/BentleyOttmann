@@ -8,6 +8,7 @@ from sortedcontainers import SortedList, SortedListWithKey
 from geo.point import Point
 from geo.segment import Segment
 from geo.coordinates_hash import CoordinatesHash
+from geo.tycat import tycat
 
 CREATION = 0
 DESTRUCTION = 1
@@ -118,7 +119,6 @@ class Events:
                                 #Adding the solutions
                                 for segment in neighbour_list:
                                     solution.add(segment, inter_point)
-
                 # Removing the current segment from the living segment
                 # FIXME: discard not working
                 # living_segments.discard(segment)
@@ -127,6 +127,9 @@ class Events:
                     if seg == segment:
                         living_segments.pop(index)
                         break
+        if Segment.current_point:
+            solution.draw_step(living_segments, Segment.current_point)
+            wait = input()
 
     def begin_segments(self, event, living_segments, adjuster, solution):
         """

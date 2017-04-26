@@ -58,10 +58,10 @@ class Segment:
 
         # Sign of the angle based on the position of the current point
         epsilon = 1
-        if current_point.coordinates[0] > point2.coordinates[0]:
+        key_abs = sweep_intersection(self, current_point)
+        if current_point.coordinates[0] > key_abs:
             epsilon = -1
 
-        key_abs = sweep_intersection(self, current_point)
         if diff == 0:
             return (key_abs, epsilon*pi/2)
         if diff < 0:
@@ -150,6 +150,7 @@ class Segment:
     def __repr__(self):
         return "Segment[" + repr(self.endpoints[0]) + ", " + \
             repr(self.endpoints[1]) + "]"
+
 
 
 def sweep_intersection(segment, current_point):
