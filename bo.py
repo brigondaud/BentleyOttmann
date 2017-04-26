@@ -46,8 +46,7 @@ def bentley_ottmann(segments, adjuster, solution):
         #beginning the segments which start from the current_event
         events.begin_segments(current_event, living_segments, adjuster, solution)
 
-        print("living segments: ", living_segments)
-        print("Living: ", len(living_segments))
+        solution.draw_living(living_segments)
 
 
 def test(filename):
