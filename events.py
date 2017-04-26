@@ -138,8 +138,10 @@ class Events:
                                     solution.add(segment, inter_point)
                 # Removing the current segment from the living segment
                 # FIXME: discard not working
+
                 # living_segments.discard(segment)
 
+                # print("failed to find {} (discard methode)".format(segment))
 
                 for index, seg in enumerate(living_segments):
                     if seg == segment:
