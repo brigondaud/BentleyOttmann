@@ -18,6 +18,16 @@ CREATION = 0
 DESTRUCTION = 1
 INTERSECTION = 2
 
+
+def doublon(liste, solution):
+    for ind, el1 in enumerate(liste):
+        for el2 in liste[ind+1:]:
+            if el1 == el2:
+                print(el1)
+                tycat(solution.segments(), el1)
+                for i in range(3):
+                    print("YA UN PUTAIN DE DOUBLON")
+
 def bentley_ottmann(segments, adjuster, solution):
     """
     computes and returns the result of the bentley ottmann algorithm for the given
@@ -44,6 +54,14 @@ def bentley_ottmann(segments, adjuster, solution):
 
         #beginning the segments which start from the current_event
         events.begin_segments(current_event, living_segments, adjuster, solution)
+
+
+        solution.draw_step(living_segments, Segment.current_point)
+        doublon(living_segments, solution)
+        print(living_segments)
+        print(len(living_segments))
+        input()
+
 
 def test(filename):
     """
