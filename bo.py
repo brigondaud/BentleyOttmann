@@ -59,10 +59,10 @@ def test(filename):
     tycat(solution.segments(), solution.intersection_points())
 
     print("\n==========INTERSECTIONS==========")
-    for segment in solution.hashtable:
-        print("{} : {}".format(segment,
-                               str([p for p in solution.points(segment)])
-                              ))
+    # for segment in solution.hashtable:
+    #     print("{} : {}".format(segment,
+    #                            str([p for p in solution.points(segment)])
+    #                           ))
 
 
     #TODO: merci de completer et de decommenter les lignes suivantes
