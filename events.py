@@ -3,7 +3,7 @@
 Events module
 contains the Event object and the Events container.
 """
-from itertools import combinations
+
 from sortedcontainers import SortedList, SortedListWithKey
 from geo.point import Point
 from geo.segment import Segment
@@ -189,14 +189,15 @@ def intersection_is_correct(point, seg1, seg2):
     if point.coordinates[1] < Segment.current_point.coordinates[1]:
         return True
 
+
+    if point in seg1.endpoints and point in seg2.endpoints:
+        return False
+
     # if horizontal segment, the intersection on current event is correct
     if point.coordinates[1] == Segment.current_point.coordinates[1]:
         #FIXME
         # if segment.endpoints[1].coordinates[1] - segment.endpoints[0].coordinates[1] == 0:
         if seg1.compute_key(Segment.current_point)[1] == 0:
-            for end1, end2 in combinations(seg1.endpoints + seg2.endpoints, 2):
-                if end1 == end2:
-                    return False
             return True
 
     return False
