@@ -49,9 +49,6 @@ def bentley_ottmann(segments, adjuster, solution):
         print("after begin step :", living_segments)
 
         solution.draw_step(living_segments, Segment.current_point)
-        wait = input()
-
-        wait = input()
 
 
 
