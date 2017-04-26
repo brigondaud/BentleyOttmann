@@ -68,8 +68,8 @@ class Events:
         creates two event for the segment
         """
         # Creating the events for the segment
-        event_creation = Event(CREATION, segment.endpoints[1])
-        event_destruction = Event(DESTRUCTION, segment.endpoints[0])
+        event_creation = Event(CREATION, max(segment.endpoints))
+        event_destruction = Event(DESTRUCTION, min(segment.endpoints))
 
         # Adding the segment in the hashtables based on the event key
         if event_creation.key in self.begin_points:
@@ -123,6 +123,7 @@ class Events:
                 # FIXME: discard not working
                 # living_segments.discard(segment)
 
+
                 for index, seg in enumerate(living_segments):
                     if seg == segment:
                         living_segments.pop(index)
@@ -130,6 +131,7 @@ class Events:
         if Segment.current_point:
             solution.draw_step(living_segments, Segment.current_point)
             wait = input()
+
 
     def begin_segments(self, event, living_segments, adjuster, solution):
         """
@@ -191,7 +193,6 @@ def intersection_is_correct(point, seg1, seg2):
     #if point not in the past
     if point.coordinates[1] < Segment.current_point.coordinates[1]:
         return True
-
 
     if point in seg1.endpoints and point in seg2.endpoints:
         return False
