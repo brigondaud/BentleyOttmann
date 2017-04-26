@@ -41,6 +41,7 @@ class Segment:
         """
         key1 = self.compute_key(self.current_point)
         key2 = other.compute_key(other.current_point)
+        print(key1, key2)
         return key1 < key2
 
     def compute_key(self, current_point):
@@ -56,12 +57,12 @@ class Segment:
         const = 0.0
         diff = point2.coordinates[0] - point1.coordinates[0]
 
+        key_abs = sweep_intersection(self, current_point)
         # Sign of the angle based on the position of the current point
         epsilon = 1
-        if current_point.coordinates[0] > point2.coordinates[0]:
+        if current_point.coordinates[0] > key_abs:
             epsilon = -1
 
-        key_abs = sweep_intersection(self, current_point)
         if diff == 0:
             return (key_abs, epsilon*pi/2)
         if diff < 0:
