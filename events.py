@@ -8,7 +8,6 @@ from sortedcontainers import SortedList, SortedListWithKey
 from geo.point import Point
 from geo.segment import Segment
 from geo.coordinates_hash import CoordinatesHash
-from geo.tycat import tycat
 
 CREATION = 0
 DESTRUCTION = 1
@@ -146,7 +145,6 @@ class Events:
                 # living_segments.discard(segment)
 
                 # print("failed to find {} (discard methode)".format(segment))
-
                 for index, seg in enumerate(living_segments):
                     if seg == segment:
                         living_segments.pop(index)

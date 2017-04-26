@@ -47,21 +47,15 @@ def bentley_ottmann(segments, adjuster, solution):
         current_event = events.event_list.pop(0)
 
         #finishing the segments which end on the current event
+        print("finish step")
         events.finish_segments(current_event, living_segments, adjuster, solution)
 
         #updating the global current point
         Segment.current_point = current_event.key
 
+        print("begin step")
         #beginning the segments which start from the current_event
         events.begin_segments(current_event, living_segments, adjuster, solution)
-
-
-        solution.draw_step(living_segments, Segment.current_point)
-        doublon(living_segments, solution)
-        print(living_segments)
-        print(len(living_segments))
-        input()
-
 
 def test(filename):
     """
