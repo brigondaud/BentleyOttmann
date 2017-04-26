@@ -37,13 +37,12 @@ def bentley_ottmann(segments, adjuster, solution):
         if Segment.current_point:
             tycat(solution.segments(), Segment.current_point)
             tycat(solution.segments(), solution.intersection_points())
-            print(living_segments)
             print("\n living segments: ", len(list(living_segments)))
         wait = input()
         # getting the first event in the events list
         current_event = events.event_list.pop(0)
 
-        #finishing the segments which begin on the current event
+        #finishing the segments which end on the current event
         events.finish_segments(current_event, living_segments, adjuster, solution)
 
         #updating the global current point
