@@ -41,7 +41,6 @@ class Segment:
         """
         key1 = self.compute_key(self.current_point)
         key2 = other.compute_key(other.current_point)
-        print(key1, key2)
         return key1 < key2
 
     def compute_key(self, current_point):
