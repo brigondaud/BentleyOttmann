@@ -32,6 +32,12 @@ class Event:
         self.type = event_type
         self.key = point
 
+    def __eq__(self, other):
+        """
+        two events are equal if they have the same key
+        """
+        return self.key == other.key
+
     def event_comparison(self):
         """
         used as a key to compare the elements beetween them.
@@ -63,6 +69,15 @@ class Events:
         """
         return " \n ".join([str(event.key) for event in iter(self.event_list)])
 
+    def event_exists(self, event):
+        """
+        returns ture if the event already exists in the events structure.
+        """
+        for ev in self.event_list:
+            if ev == event:
+                return True
+        return False
+
     def init_segment_events(self, segment):
         """
         creates two event for the segment
@@ -78,14 +93,16 @@ class Events:
         else:
             self.begin_points[event_creation.key] = [segment]
             #Adds the event in the events structure
-            self.event_list.add(event_creation)
+            if not self.event_exists(event_creation):
+                self.event_list.add(event_creation)
 
         if event_destruction.key in self.end_points:
             self.end_points[event_destruction.key].append(segment)
         else:
             self.end_points[event_destruction.key] = [segment]
             #Adds the event in the event structure
-            self.event_list.add(event_destruction)
+            if not self.event_exists(event_destruction):
+                self.event_list.add(event_destruction)
 
     def isempty(self):
         """
@@ -130,7 +147,7 @@ class Events:
                         break
         if Segment.current_point:
             solution.draw_step(living_segments, Segment.current_point)
-            wait = input()
+            # wait = input()
 
 
     def begin_segments(self, event, living_segments, adjuster, solution):

@@ -33,7 +33,7 @@ def bentley_ottmann(segments, adjuster, solution):
     living_segments = SortedList()
     Segment.current_point = None
     while not events.isempty():
-
+        print("events: ", events)
         # getting the first event in the events list
         current_event = events.event_list.pop(0)
 
@@ -49,9 +49,8 @@ def bentley_ottmann(segments, adjuster, solution):
         print("after begin step :", living_segments)
 
         solution.draw_step(living_segments, Segment.current_point)
-        wait = input()
+        # wait = input()
 
-        wait = input()
 
 
 
