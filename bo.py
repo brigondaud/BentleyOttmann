@@ -32,19 +32,23 @@ def bentley_ottmann(segments, adjuster, solution):
     #TODO: compute the optimal load for living segments
     living_segments = SortedList()
     Segment.current_point = None
+    while not events.isempty():
 
-    # getting the first event in the events list
-    current_event = events.event_list.pop(0)
+        # getting the first event in the events list
+        current_event = events.event_list.pop(0)
 
-    #finishing the segments which end on the current event
-    events.finish_segments(current_event, living_segments, adjuster, solution)
+        #finishing the segments which end on the current event
+        events.finish_segments(current_event, living_segments, adjuster, solution)
 
-    #updating the global current point
-    Segment.current_point = current_event.key
+        #updating the global current point
+        Segment.current_point = current_event.key
 
-    #beginning the segments which start from the current_event
-    events.begin_segments(current_event, living_segments, adjuster, solution)
+        #beginning the segments which start from the current_event
+        events.begin_segments(current_event, living_segments, adjuster, solution)
 
+        print("living segments: ", living_segments)
+        print("Living: ", len(living_segments))
+        wait = input()
 
 
 def test(filename):
@@ -57,15 +61,6 @@ def test(filename):
     bentley_ottmann(segments, adjuster, solution)
     tycat(segments)
     tycat(solution.segments(), solution.intersection_points())
-
-
-    print("\n==========INTERSECTIONS==========")
-
-    for segment in solution.hashtable:
-        print("{} : {}".format(segment,
-                               str([p for p in solution.points(segment)])
-                              ))
-
 
     #TODO: merci de completer et de decommenter les lignes suivantes
     #results = lancer bentley ottmann sur les segments et l'ajusteur

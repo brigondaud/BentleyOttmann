@@ -121,12 +121,12 @@ class Events:
 
                 # Removing the current segment from the living segment
                 # FIXME: discard not working
-                living_segments.discard(segment)
+                # living_segments.discard(segment)
 
-                # for index, seg in enumerate(living_segments):
-                #     if seg == segment:
-                #         living_segments.pop(index)
-                #         break
+                for index, seg in enumerate(living_segments):
+                    if seg == segment:
+                        living_segments.pop(index)
+                        break
 
     def begin_segments(self, event, living_segments, adjuster, solution):
         """
@@ -138,7 +138,6 @@ class Events:
                 # Adds the segment to the living segments
                 # Checks the intersection with the added segment
                 living_segments.add(segment)
-                print("liv_seg: ", living_segments)
                 self.check_intersection(event, segment,
                                         living_segments,
                                         adjuster, solution)
@@ -221,13 +220,8 @@ def neighbours(segment, segments):
     """
     yields the neighbour segments of segment in segments
     """
-    # segment_index = segments.index(segment)
-    #TODO: debugg the index with minus sign on the angle to replace naive search
-
-
-    # print("\nLiving segments: ", segments, "\n")
-
     segment_index = None
+    # segment_index = segments.index(segment)
     for index, seg in enumerate(segments):
         if seg is segment:
             segment_index = index
