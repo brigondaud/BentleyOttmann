@@ -60,8 +60,8 @@ class Solution:
         """
         tycat(self.segments(), self.intersection_points())
 
-    def draw_living(self, living):
+    def draw_step(self, living, current):
         """
-        draw the living segments on top of the normal draw
+        draw the living segments and the current_point on top of the normal draw
         """
-        tycat(self.segments(), self.intersection_points(), living)
+        tycat(self.segments(), self.intersection_points(), living, current)
