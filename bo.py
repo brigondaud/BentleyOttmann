@@ -33,6 +33,11 @@ def bentley_ottmann(segments, adjuster, solution):
     living_segments = SortedList()
     Segment.current_point = None
     while not events.isempty():
+        print(Segment.current_point)
+        if Segment.current_point:
+            tycat(solution.segments(), Segment.current_point)
+            tycat(solution.segments(), solution.intersection_points())
+        wait = input()
         # getting the first event in the events list
         current_event = events.event_list.pop(0)
 

@@ -174,15 +174,17 @@ def intersection_is_correct(point, segment):
     """
     #if point not in the past
     if point.coordinates[1] < Segment.current_point.coordinates[1]:
+        print("test 1 success")
         return True
 
     # if horizontal segment, the intersection on current event is correct
-    elif point.coordinates[1] == Segment.current_point.coordinates[1]:
+    if point.coordinates[1] == Segment.current_point.coordinates[1]:
         #FIXME
         # if segment.endpoints[1].coordinates[1] - segment.endpoints[0].coordinates[1] == 0:
         if segment.compute_key(Segment.current_point)[1] == 0:
+            print(segment.compute_key(Segment.current_point))
             return True
-    print("False")
+
     return False
 
 def intersect_with(event, segment, living_segments, adjuster):
