@@ -34,6 +34,7 @@ def bentley_ottmann(segments, adjuster, solution):
     Segment.current_point = None
     while not events.isempty():
 
+        print("Living: ", living_segments)
         # getting the first event in the events list
         current_event = events.event_list.pop(0)
 

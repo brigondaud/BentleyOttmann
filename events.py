@@ -108,6 +108,13 @@ class Events:
                             if inter_point not in self.begin_points:
                                 self.add_intersection(inter_point)
 
+                                # Adding the neighbours in the intersection in the hashtables
+                                self.begin_points[inter_point].append(neighbour_list[0])
+                                self.begin_points[inter_point].append(neighbour_list[1])
+
+                                self.end_points[inter_point].append(neighbour_list[0])
+                                self.end_points[inter_point].append(neighbour_list[1])
+
                                 #Adding the solutions
                                 for segment in neighbour_list:
                                     solution.add(segment, inter_point)
@@ -176,7 +183,6 @@ def intersection_is_correct(point, seg1, seg2):
     """
     #if point not in the past
     if point.coordinates[1] < Segment.current_point.coordinates[1]:
-        print("test 1 success")
         return True
 
     # if horizontal segment, the intersection on current event is correct
