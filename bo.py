@@ -33,11 +33,17 @@ def bentley_ottmann(segments, adjuster, solution):
     living_segments = SortedList()
     Segment.current_point = None
     while not events.isempty():
+        print(Segment.current_point)
+        if Segment.current_point:
+            tycat(solution.segments(), Segment.current_point)
+            tycat(solution.segments(), solution.intersection_points())
+            print("\n living segments: ", len(list(living_segments)))
+        wait = input()
 
         # getting the first event in the events list
         current_event = events.event_list.pop(0)
 
-        #finishing the segments which begin on the current event
+        #finishing the segments which end on the current event
         events.finish_segments(current_event, living_segments, adjuster, solution)
 
         #updating the global current point
@@ -45,7 +51,10 @@ def bentley_ottmann(segments, adjuster, solution):
 
         #beginning the segments which start from the current_event
         events.begin_segments(current_event, living_segments, adjuster, solution)
-        print("Living: ", len(living_segments))
+
+    print("living segments: ", living_segments)
+    print("Living: ", len(living_segments))
+
 
 def test(filename):
     """
@@ -58,7 +67,9 @@ def test(filename):
     tycat(segments)
     tycat(solution.segments(), solution.intersection_points())
 
+
     # print("\n==========INTERSECTIONS==========")
+
     # for segment in solution.hashtable:
     #     print("{} : {}".format(segment,
     #                            str([p for p in solution.points(segment)])
