@@ -121,12 +121,12 @@ class Events:
 
                 # Removing the current segment from the living segment
                 # FIXME: discard not working
-                # living_segments.discard(segment)
+                living_segments.discard(segment)
 
-                for index, seg in enumerate(living_segments):
-                    if seg == segment:
-                        living_segments.pop(index)
-                        break
+                # for index, seg in enumerate(living_segments):
+                #     if seg == segment:
+                #         living_segments.pop(index)
+                #         break
 
     def begin_segments(self, event, living_segments, adjuster, solution):
         """
