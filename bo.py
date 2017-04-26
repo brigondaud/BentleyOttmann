@@ -46,7 +46,7 @@ def bentley_ottmann(segments, adjuster, solution):
         #beginning the segments which start from the current_event
         events.begin_segments(current_event, living_segments, adjuster, solution)
 
-        solution.draw_living(living_segments)
+        solution.draw_step(living_segments, Segment.current_point)
 
         wait = input()
 
