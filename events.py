@@ -97,13 +97,11 @@ class Events:
         finishes the segments on event
         """
         # if segments are finishing on the current event
-        print("finish on event: checking for the intersections around...", event.key)
         if event.key in self.end_points:
             for segment in self.end_points[event.key]:
                 neighbour_list = list(neighbours(segment, living_segments))
                 if len(neighbour_list) == 2:
                     inter_point = neighbour_list[0].intersection_with(neighbour_list[1])
-                    print("found two neighbours which intersects !")
                     if inter_point is not None:
                         if intersection_is_correct(inter_point, neighbour_list[0]):
                             inter_point = adjuster.hash_point(inter_point)
@@ -116,7 +114,6 @@ class Events:
 
                 # Removing the current segment from the living segment
                 living_segments.discard(segment)
-                print("Removed from the living segment: ", segment)
 
     def begin_segments(self, event, living_segments, adjuster, solution):
         """
@@ -128,8 +125,6 @@ class Events:
                 # Adds the segment to the living segments
                 # Checks the intersection with the added segment
                 living_segments.add(segment)
-                print("Adding to the living segment: ", segment)
-                print("begin on event: checking intersections... ", event.key)
                 self.check_intersection(event, segment,
                                         living_segments,
                                         adjuster, solution)
@@ -154,10 +149,8 @@ class Events:
         for inter_point, inter_segment in intersect_with(event, segment,
                                                          segments,
                                                          adjuster):
-            print("checking for correct intersections...")
             # if point not in the past
             if intersection_is_correct(inter_point, segment):
-                print("correct intersection found !")
                 # If the intersection does not exists
                 if inter_point not in self.begin_points:
                     self.add_intersection(inter_point)
@@ -181,11 +174,15 @@ def intersection_is_correct(point, segment):
     """
     #if point not in the past
     if point.coordinates[1] < Segment.current_point.coordinates[1]:
+        print("test 1 success")
         return True
 
     # if horizontal segment, the intersection on current event is correct
-    elif point.coordinates[1] == Segment.current_point.coordinates[1]:
-        if segment.endpoints[1].coordinates[1] - segment.endpoints[0].coordinates[1] == 0:
+    if point.coordinates[1] == Segment.current_point.coordinates[1]:
+        #FIXME
+        # if segment.endpoints[1].coordinates[1] - segment.endpoints[0].coordinates[1] == 0:
+        if segment.compute_key(Segment.current_point)[1] == 0:
+            print(segment.compute_key(Segment.current_point))
             return True
 
     return False
@@ -214,13 +211,14 @@ def neighbours(segment, segments):
     """
     # segment_index = segments.index(segment)
     #TODO: debugg the index with minus sign on the angle to replace naive search
-    print("Looking for {} in living segments".format(segment))
+
+
     # print("\nLiving segments: ", segments, "\n")
+
     segment_index = None
     for index, seg in enumerate(segments):
         if seg is segment:
             segment_index = index
-            print("Segment found in living segment !")
     if segment_index is not None:
         if segment_index < len(segments)-1:
             yield segments[segment_index + 1]

@@ -53,8 +53,8 @@ class Segment:
         # Event during the first iteration, when a segment is added
         # to the living segment, the current point is not None
         assert current_point is not None
-        point1 = self.endpoints[0]
-        point2 = self.endpoints[1]
+        point1 = self.endpoints[1]
+        point2 = self.endpoints[0]
         constante = 0.0
         diff = point2.coordinates[0] - point1.coordinates[0]
         if diff == 0:
