@@ -145,8 +145,8 @@ class Events:
                     if seg == segment:
                         living_segments.pop(index)
                         break
-        if Segment.current_point:
-            solution.draw_step(living_segments, Segment.current_point)
+        # if Segment.current_point:
+            # solution.draw_step(living_segments, Segment.current_point)
             # wait = input()
 
 
