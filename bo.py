@@ -51,6 +51,7 @@ def bentley_ottmann(segments, adjuster, solution):
 
         #updating the global current point
         Segment.current_point = current_event.key
+        sorted(living_segments)
 
         #beginning the segments which start from the current_event
         events.begin_segments(current_event, living_segments, adjuster, solution)
