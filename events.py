@@ -239,15 +239,12 @@ def intersection_is_correct(point, seg1, seg2):
     #if point not in the past
     if (point in seg1.endpoints and point in seg2.endpoints):
         return False
+
+    # Regular cases
     return (point.coordinates[1] <= Segment.current_point.coordinates[1]) or \
            (point.coordinates[1] == Segment.current_point.coordinates[1] and \
             point.coordinates[0] <= Segment.current_point.coordinates[0])
-    # if point.coordinates[1] <= Segment.current_point.coordinates[1]:
-    #     if point in seg1.endpoints and point in seg2.endpoints:
-    #         return False
-    #     else:
-    #         return True
-    # return False
+
 
 def intersect_with(event, segment, living_segments, adjuster):
     """
