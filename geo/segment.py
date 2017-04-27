@@ -28,13 +28,14 @@ class Segment:
     """
     # Class attribute for the current point
     current_point = None
+    adjuster=CoordinatesHash()
 
-    def __init__(self, points):
+    def __init__(self, points, index=0):
         """
         create a segment from an array of two points.
         """
         self.endpoints = points
-
+        self.index = index
     def __lt__(self, other):
         """
         compares two segments
@@ -99,9 +100,15 @@ class Segment:
         """
         svg for tycat.
         """
+        # p = self.endpoints[0].coordinates + self.endpoints[1].coordinates
+        p = Point([0, 0])
+        p.coordinates[0] = (self.endpoints[0].coordinates[0] + self.endpoints[1].coordinates[0])/2
+        p.coordinates[1] = (self.endpoints[0].coordinates[1] + self.endpoints[1].coordinates[1])/2
+
         return '<line x1="{}" y1="{}" x2="{}" y2="{}"/>\n'.format(
             *self.endpoints[0].coordinates,
-            *self.endpoints[1].coordinates)
+            *self.endpoints[1].coordinates) +\
+            '<text x="{}" y="{}" fill="red" font-size=".3">{}</text>'.format(*p.coordinates, self.index)
 
     def intersection_with(self, other):
         """
@@ -163,8 +170,10 @@ def sweep_intersection(segment, current_point):
                      Point([1, current_point.coordinates[1]])])
     key_point = segment.line_intersection_with(sweep)
 
+
     # The key_point is None if segment is horizontal
     if key_point is not None:
+        key_point = Segment.adjuster.hash_point(key_point)
         return key_point.coordinates[0]
     else:
         return current_point.coordinates[0]
@@ -180,11 +189,13 @@ def load_segments(filename):
 
     with open(filename, "rb") as bo_file:
         packed_segment = bo_file.read(32)
+        index = 0
         while packed_segment:
             coordinates = coordinates_struct.unpack(packed_segment)
             raw_points = [Point(coordinates[0:2]), Point(coordinates[2:])]
             adjusted_points = [adjuster.hash_point(p) for p in raw_points]
-            segments.append(Segment(adjusted_points))
+            segments.append(Segment(adjusted_points, index))
             packed_segment = bo_file.read(32)
+            index+=1
 
     return adjuster, segments
