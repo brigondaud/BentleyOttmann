@@ -181,13 +181,11 @@ def load_segments(filename):
 
     with open(filename, "rb") as bo_file:
         packed_segment = bo_file.read(32)
-        index = 0
         while packed_segment:
             coordinates = coordinates_struct.unpack(packed_segment)
             raw_points = [Point(coordinates[0:2]), Point(coordinates[2:])]
             adjusted_points = [adjuster.hash_point(p) for p in raw_points]
-            segments.append(Segment(adjusted_points, index))
+            segments.append(Segment(adjusted_points))
             packed_segment = bo_file.read(32)
-            index+=1
 
     return adjuster, segments
