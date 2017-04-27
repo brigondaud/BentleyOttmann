@@ -118,7 +118,6 @@ class Events:
         if event.key in self.end_points:
             for segment in self.end_points[event.key]:
                 neighbour_list = list(neighbours(segment, living_segments))
-                # print("segment: ", segment)
                 # print("his neightbours: ", neighbour_list)
                 if len(neighbour_list) == 2:
                     # tycat(solution.segments(), Segment.current_point, living_segments, segment, neighbour_list)
@@ -150,6 +149,8 @@ class Events:
                     if seg == segment:
                         living_segments.pop(index)
                         break
+                else:
+                    print("did not find :", segment)
 
     def begin_segments(self, event, living_segments, adjuster, solution):
         """
@@ -190,16 +191,16 @@ class Events:
             # if point not in the past
             if intersection_is_correct(inter_point, segment, inter_segment):
                 # If the intersection does not exists
-                if inter_point not in self.begin_points:
+                if inter_point not in self.end_points:
                     self.add_intersection(inter_point)
 
                 # if the intersection point already exists and if the
                 # current segment is involved => it is already in *_points
-                if segment not in self.begin_points[inter_point]:
+                if segment not in self.end_points[inter_point]:
                     # Adds the segment to the hashtable with the computed intersection
                     self.begin_points[inter_point].append(segment)
                     self.end_points[inter_point].append(segment)
-                if inter_segment not in self.begin_points[inter_point]:
+                if inter_segment not in self.end_points[inter_point]:
                     self.begin_points[inter_point].append(inter_segment)
                     self.end_points[inter_point].append(inter_segment)
 
