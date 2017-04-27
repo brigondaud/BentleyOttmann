@@ -9,7 +9,6 @@ from sortedcontainers import SortedList, SortedListWithKey
 from geo.point import Point
 from geo.segment import Segment
 from geo.coordinates_hash import CoordinatesHash
-from geo.tycat import tycat
 
 CREATION = 0
 DESTRUCTION = 1
@@ -257,6 +256,7 @@ def intersect_with(event, segment, living_segments, adjuster):
         if neighbour is None:
             continue
         inter_point = segment.intersection_with(neighbour)
+
         # if there's an intersection
         if inter_point is not None:
             inter_point = adjuster.hash_point(inter_point)
@@ -267,56 +267,56 @@ def neighbours(segment, segments):
     yields the neighbour segments of segment in segments
     """
     segment_index = None
-    droit, gauche = None, None
+    right, left = None, None
     # segment_index = segments.index(segment)
     for index, seg in enumerate(segments):
         if seg is segment:
             segment_index = index
     if segment_index is not None:
         if segment_index < len(segments)-1:
-            droit = segments[segment_index + 1]
+            right = segments[segment_index + 1]
         if segment_index > 0:
-            gauche = segments[segment_index - 1]
-    return [gauche, droit]
+            left = segments[segment_index - 1]
+    return [left, right]
 
 def events_init_test():
     """
     test the init of a segment in the series of event
     """
-    #print("\n------------Segment init test------------")
+    print("\n------------Segment init test------------")
     events = Events([Segment([Point([1.0, 2.0]), Point([3.0, 4.0])]),
                      Segment([Point([-3.0, -4.0]), Point([3.0, -4.0])]),
                      Segment([Point([-3.0, -4.0]), Point([2.0, 4.0])])])
-    #print(events)
-    #print("-----------------------------------------\n")
+    print(events)
+    print("-----------------------------------------\n")
 
 def intersection_test():
     """
     test the intersection on basic cases with one or two neighbours
     """
-    #print("\n---------Intersection neighbour test---------")
+    print("\n---------Intersection neighbour test---------")
     seg1 = Segment([Point([0, 0]), Point([2, 2])])
     seg2 = Segment([Point([1, 0]), Point([1, 2])])
     events = Events([seg1, seg2])
-    #print("events:", events)
+    print("events:", events)
 
     Segment.current_point = Point([2.0, 2.0])
     living_segments = SortedList()
     living_segments.add(seg1)
     living_segments.add(seg2)
 
-    # while not events.isempty():
-    #     current_event = events.event_list.pop(0)
-    #     #print("current event: ", current_event.key)
-    #     if current_event.key in events.begin_points:
-    #         for segment in events.begin_points[current_event.key]:
-                #print("segment étudié :", segment)
-                #print([p for p in intersect_with(current_event,
-                                                #  segment,
-                                                #  living_segments,
-                                                #  CoordinatesHash())])
+    while not events.isempty():
+        current_event = events.event_list.pop(0)
+        #print("current event: ", current_event.key)
+        if current_event.key in events.begin_points:
+            for segment in events.begin_points[current_event.key]:
+                print("segment étudié :", segment)
+                print([p for p in intersect_with(current_event,
+                                                 segment,
+                                                 living_segments,
+                                                 CoordinatesHash())])
 
-    #print("-----------------------------------------\n")
+    print("-----------------------------------------\n")
 
 if __name__ == "__main__":
     """
