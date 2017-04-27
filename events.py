@@ -8,6 +8,7 @@ from sortedcontainers import SortedList, SortedListWithKey
 from geo.point import Point
 from geo.segment import Segment
 from geo.coordinates_hash import CoordinatesHash
+from geo.tycat import tycat
 
 CREATION = 0
 DESTRUCTION = 1
@@ -120,37 +121,54 @@ class Events:
                 neighbour_list = list(neighbours(segment, living_segments))
                 # print("his neightbours: ", neighbour_list)
                 if len(neighbour_list) == 2:
-                    # tycat(solution.segments(), Segment.current_point, living_segments, segment, neighbour_list)
-                    # input()
                     inter_point = neighbour_list[0].intersection_with(neighbour_list[1])
                     if inter_point is not None:
                         if intersection_is_correct(inter_point, neighbour_list[0], neighbour_list[1]):
                             inter_point = adjuster.hash_point(inter_point)
-                            if inter_point not in self.end_points:
-                                self.add_intersection(inter_point)
 
-                                # Adding the neighbours in the intersection in the hashtables
+                            #Checking for existing entries in the hashtables
+                            if inter_point not in self.end_points:
+                                self.end_points[inter_point] = []
+
+                            if inter_point not in self.begin_points:
+                                self.begin_points[inter_point] = []
+
+                            #If an event does not exist for the comptued intersection
+                            # a new event is added
+                            intersection = Event(INTERSECTION, inter_point)
+                            if not self.event_exists(intersection):
+                                self.event_list.add(intersection)
+
+                            # Adding the neighbours in the intersection in the hashtables
+                            if neighbour_list[0] not in self.begin_points[inter_point]:
                                 self.begin_points[inter_point].append(neighbour_list[0])
+
+                            if neighbour_list[1] not in self.begin_points[inter_point]:
                                 self.begin_points[inter_point].append(neighbour_list[1])
 
+                            if neighbour_list[0] not in self.end_points[inter_point]:
                                 self.end_points[inter_point].append(neighbour_list[0])
+
+                            if neighbour_list[1] not in self.end_points[inter_point]:
                                 self.end_points[inter_point].append(neighbour_list[1])
 
-                                #Adding the solutions
-                                for segment in neighbour_list:
-                                    solution.add(segment, inter_point)
-                # Removing the current segment from the living segment
-                # FIXME: discard not working
+                            #Adding the intersection to the solutions
+                            for segment in neighbour_list:
+                                solution.add(segment, inter_point)
 
-                # living_segments.discard(segment)
-
-                # print("failed to find {} (discard methode)".format(segment))
                 for index, seg in enumerate(living_segments):
                     if seg == segment:
                         living_segments.pop(index)
                         break
                 else:
                     print("did not find :", segment)
+
+                # Removing the current segment from the living segment
+                # FIXME: discard not working
+
+                # living_segments.discard(segment)
+
+                # print("failed to find {} (discard methode)".format(segment))
 
     def begin_segments(self, event, living_segments, adjuster, solution):
         """
@@ -161,7 +179,8 @@ class Events:
             for segment in self.begin_points[event.key]:
                 # Adds the segment to the living segments
                 # Checks the intersection with the added segment
-                living_segments.add(segment)
+                if segment not in living_segments:
+                    living_segments.add(segment)
                 self.check_intersection(event, segment,
                                         living_segments,
                                         adjuster, solution)
@@ -189,7 +208,7 @@ class Events:
             # if point not in the past
             if intersection_is_correct(inter_point, segment, inter_segment):
                 # If the intersection does not exists
-                if inter_point not in self.end_points:
+                if inter_point not in self.end_points and inter_point not in self.begin_points:
                     self.add_intersection(inter_point)
 
                 # if the intersection point already exists and if the
@@ -211,14 +230,11 @@ def intersection_is_correct(point, seg1, seg2):
     check if an intersection is correct
     """
     #if point not in the past
-    if point.coordinates[1] < Segment.current_point.coordinates[1]:
+    if point.coordinates[1] <= Segment.current_point.coordinates[1]:
 
-        # endpoints case
+        # case: common point on endpoint
         if point in seg1.endpoints and point in seg2.endpoints:
             return False
-
-        # horizontal case
-        
 
         return True
 
