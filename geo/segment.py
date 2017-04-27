@@ -50,10 +50,6 @@ class Segment:
         """
         computes the key for the bo algorithm
         """
-        # Event during the first iteration, when a segment is added
-        # to the living segment, the current point is not None
-        assert current_point is not None
-
         point1 = self.endpoints[0]
         point2 = self.endpoints[1]
         const = 0.0
