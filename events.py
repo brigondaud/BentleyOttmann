@@ -158,7 +158,7 @@ class Events:
                 end_point.append(neighbour_right)
 
             # Adds the segment to the begin hashtable if it is not
-            # on an endpoint of the segment
+            # on an endpoint of the segment (the "T" case)
             begin_point = self.begin_points[inter_point]
             if not neighbour_left in begin_point and not inter_point in neighbour_left.endpoints:
                 begin_point.append(neighbour_left)
