@@ -177,8 +177,7 @@ class Events:
 
             # Adds the segment to the living segments
             # Checks the intersection with the added segment
-            if segment not in living_segments:
-                living_segments.add(segment)
+            living_segments.add(segment)
 
             self.check_intersection(segment, living_segments, solution)
 
