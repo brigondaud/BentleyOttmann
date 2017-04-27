@@ -28,6 +28,8 @@ class Segment:
     """
     # Class attribute for the current point
     current_point = None
+
+    # Adjuster usable with all segments (when computing key)
     adjuster=CoordinatesHash()
 
     def __init__(self, points, index=0):
@@ -58,6 +60,7 @@ class Segment:
         diff = point2.coordinates[0] - point1.coordinates[0]
 
         key_abs = sweep_intersection(self, current_point)
+
         # Sign of the angle based on the position of the current point
         epsilon = 1
         if current_point.coordinates[0] > key_abs:
@@ -107,8 +110,7 @@ class Segment:
 
         return '<line x1="{}" y1="{}" x2="{}" y2="{}"/>\n'.format(
             *self.endpoints[0].coordinates,
-            *self.endpoints[1].coordinates) +\
-            '<text x="{}" y="{}" fill="red" font-size=".3">{}</text>'.format(*p.coordinates, self.index)
+            *self.endpoints[1].coordinates)
 
     def intersection_with(self, other):
         """
