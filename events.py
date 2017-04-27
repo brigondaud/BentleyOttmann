@@ -176,8 +176,7 @@ class Events:
             return
 
         for segment in self.begin_points[event.key]:
-            #print('DEBUT', segment.index)
-            # input()
+
             # Adds the segment to the living segments
             # Checks the intersection with the added segment
             if segment not in living_segments:
