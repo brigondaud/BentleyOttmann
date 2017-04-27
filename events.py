@@ -212,49 +212,21 @@ class Events:
         for inter_point, inter_segment in \
                                 intersect_with(event, segment, segments, adjuster):
 
-            #print("intersection: ", inter_point)
-            #print([inter_segment, segment])
             # if point not in the past
             if not intersection_is_correct(inter_point, segment, inter_segment):
                 continue
+
             # If the event does not exists
-            # if inter_point not in self.end_points and inter_point not in self.begin_points:
             self.add_intersection(inter_point)
-            # if inter_point in self.end_points and inter_point in self.end_points:
-            #     self.begin_points[inter_point] = []
 
-            # if the intersection point already exists and if the
-            # current segment is involved => it is already in *_points
-            # if segment not in self.end_points[inter_point]:
-            #     # Adds the segment to the hashtable with the computed intersection
-            #     #if inter_point in self.begin_points:
-            #     self.end_points[inter_point].append(segment)
-            #     # if not segment in self.begin_points[inter_point]:
-            #     if not inter_point in segment.endpoints:
-            #         self.begin_points[inter_point].append(segment)
-            #
-            # if inter_segment not in self.end_points[inter_point]:
-            #     self.end_points[inter_point].append(inter_segment)
-            #     # if not inter_segment in self.begin_points[inter_point]:
-            #     if not inter_point in inter_segment.endpoints:
-            #         self.begin_points[inter_point].append(inter_segment)
+            # Adds the segments in the correct hashtables
+            for segment in [inter_segment, segment]:
 
+                if segment not in self.end_points[inter_point]:
+                    self.end_points[inter_point].append(segment)
 
-            for s in [inter_segment, segment]:
-                # if s.index == 56:
-                #     print('6 INTERSECTION ___________________________________________')
-                #     print(inter_point)
-                #     print('end:', [s.index for s in self.end_points[inter_point]])
-                #     print('begin:', [s.index for s in self.begin_points[inter_point]])
-                #     print(inter_point in s.endpoints)
-                #     print(s.endpoints)
-                #     input()
-
-                if s not in self.end_points[inter_point]:
-                    self.end_points[inter_point].append(s)
-                    # if not s in self.begin_points[inter_point]:
-                    if not inter_point in s.endpoints:
-                        self.begin_points[inter_point].append(s)
+                    if not inter_point in segment.endpoints:
+                        self.begin_points[inter_point].append(segment)
 
             # Adding the solution
             solution.add(inter_segment, inter_point)
