@@ -212,17 +212,15 @@ def intersection_is_correct(point, seg1, seg2):
     """
     #if point not in the past
     if point.coordinates[1] < Segment.current_point.coordinates[1]:
+
+        # endpoints case
+        if point in seg1.endpoints and point in seg2.endpoints:
+            return False
+
+        # horizontal case
+        
+
         return True
-
-    if point in seg1.endpoints and point in seg2.endpoints:
-        return False
-
-    # if horizontal segment, the intersection on current event is correct
-    if point.coordinates[1] == Segment.current_point.coordinates[1]:
-        #FIXME
-        # if segment.endpoints[1].coordinates[1] - segment.endpoints[0].coordinates[1] == 0:
-        if seg1.compute_key(Segment.current_point)[1] == 0:
-            return True
 
     return False
 
