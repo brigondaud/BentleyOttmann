@@ -55,6 +55,8 @@ def test(filename):
     run bentley ottmann
     """
     adjuster, segments = load_segments(filename)
+
+    # The adjuster is used by all the segments to compute their keys
     Segment.adjuster = adjuster
 
     # Initializes the solution for the segments

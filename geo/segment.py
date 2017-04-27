@@ -30,7 +30,7 @@ class Segment:
     current_point = None
 
     # Adjuster usable with all segments (when computing key)
-    adjuster=CoordinatesHash()
+    adjuster = CoordinatesHash()
 
     def __init__(self, points, index=0):
         """
@@ -103,7 +103,7 @@ class Segment:
         """
         svg for tycat.
         """
-        
+
         return '<line x1="{}" y1="{}" x2="{}" y2="{}"/>\n'.format(
             *self.endpoints[0].coordinates,
             *self.endpoints[1].coordinates)
