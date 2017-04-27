@@ -18,16 +18,6 @@ CREATION = 0
 DESTRUCTION = 1
 INTERSECTION = 2
 
-
-def doublon(liste, solution):
-    for ind, el1 in enumerate(liste):
-        for el2 in liste[ind+1:]:
-            if el1 == el2:
-                print(el1)
-                tycat(solution.segments(), el1)
-                for i in range(3):
-                    print("YA UN PUTAIN DE DOUBLON")
-
 def bentley_ottmann(segments, adjuster, solution):
     """
     computes and returns the result of the bentley ottmann algorithm for the given
@@ -43,30 +33,20 @@ def bentley_ottmann(segments, adjuster, solution):
     #TODO: compute the optimal load for living segments
     living_segments = SortedList()
     Segment.current_point = None
-    c = 0
+
     while not events.isempty():
-        c+=1
+
         # getting the first event in the events list
         current_event = events.event_list.pop(0)
-        # print("changement de current_event")
-
-        print('alive : ', [s.index for s in living_segments])
 
         #finishing the segments which end on the current event
         events.finish_segments(current_event, living_segments, adjuster, solution)
-        # print("finish")
+
         #updating the global current point
         Segment.current_point = current_event.key
-        #tycat(solution.segments(), Segment.current_point, living_segments)
-        # print("changement de current_point")
 
         #beginning the segments which start from the current_event
         events.begin_segments(current_event, living_segments, adjuster, solution)
-        # print("debut")
-
-        if c%1 == 0:
-            solution.draw_step(living_segments, Segment.current_point)
-        input()
 
 def test(filename):
     """
@@ -74,30 +54,23 @@ def test(filename):
     """
     adjuster, segments = load_segments(filename)
     Segment.adjuster = adjuster
+
     # Initializes the solution for the segments
     solution = Solution(segments)
+
+    # Algorithm
     bentley_ottmann(segments, adjuster, solution)
+
+    # Printing the output of the algorithm
     tycat(segments)
     tycat(solution.segments(), solution.intersection_points())
-
-    #TODO: merci de completer et de decommenter les lignes suivantes
-    #results = lancer bentley ottmann sur les segments et l'ajusteur
-    #...
-    #tycat(segments, intersections)
-    #print("le nombre d'intersections (= le nombre de points differents) est", ...)
-    #print("le nombre de coupes dans les segments (si un point d'intersection apparait dans
-    # plusieurs segments, il compte plusieurs fois) est", ...)
+    solution.summary()
 
 def main():
     """
     launch test on each file.
     """
     for filename in sys.argv[1:]:
-        try:
-            test(filename)
-        except Exception as e:
-            print("ERROR", e)
-            # to see te error
-            raise e
+        test(filename)
 
 main()
