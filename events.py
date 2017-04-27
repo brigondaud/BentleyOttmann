@@ -113,6 +113,7 @@ class Events:
         """
         finishes the segments on event
         """
+        #FIXME: segments are not dying before the current_point is on the event
         # if segments are finishing on the current event
         if event.key in self.end_points:
             for segment in self.end_points[event.key]:
@@ -196,8 +197,9 @@ class Events:
                     # Adds the segment to the hashtable with the computed intersection
                     self.begin_points[inter_point].append(segment)
                     self.end_points[inter_point].append(segment)
-                self.begin_points[inter_point].append(inter_segment)
-                self.end_points[inter_point].append(inter_segment)
+                if inter_segment not in self.begin_points[inter_point]:
+                    self.begin_points[inter_point].append(inter_segment)
+                    self.end_points[inter_point].append(inter_segment)
 
                 # Adding the solution
                 solution.add(inter_segment, inter_point)
