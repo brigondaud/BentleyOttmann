@@ -3,17 +3,17 @@
 Events module
 contains the Event object and the Events container.
 """
-#pylint: disable=C0103
 
 from sortedcontainers import SortedList, SortedListWithKey
 from geo.point import Point
 from geo.segment import Segment
-from geo.coordinates_hash import CoordinatesHash
 
 CREATION = 0
 DESTRUCTION = 1
 INTERSECTION = 2
 
+#pylint: disable=R0903
+# Using an event object
 class Event:
     """
     The Event object corresponds to a creation or a destruction of a
@@ -27,8 +27,7 @@ class Event:
         coordinates, the coordinates of the Point, and segments a list of
         the segments associated to the point.
         """
-        # Keeping the event_type because in case of intersection
-        #the computing of it can produce a "past intersection"
+        # Keeping the event_type for debug purpose
         self.type = event_type
         self.key = point
 
@@ -73,8 +72,8 @@ class Events:
         """
         returns ture if the event already exists in the events structure.
         """
-        for ev in self.event_list:
-            if ev == event:
+        for search_event in self.event_list:
+            if search_event == event:
                 return True
         return False
 
@@ -110,7 +109,7 @@ class Events:
         """
         return len(self.event_list) == 0
 
-    def finish_segments(self, event, living_segments, adjuster, solution):
+    def finish_segments(self, event, living_segments, solution):
         """
         finishes the segments on event
         """
@@ -138,7 +137,7 @@ class Events:
             if not inter_point:
                 continue
 
-            inter_point = adjuster.hash_point(inter_point)
+            inter_point = Segment.adjuster.hash_point(inter_point)
 
             if not intersection_is_correct(inter_point, neighbour_left, neighbour_right):
                 continue
@@ -148,7 +147,7 @@ class Events:
             solution.add(neighbour_right, inter_point)
 
             # If no event exists for this intersection, the event is created
-            if not inter_point in self.end_points and not inter_point in self.begin_points:
+            if inter_point not in self.end_points and inter_point not in self.begin_points:
                 self.add_intersection(inter_point)
 
             # Adds the segments to the end hashtable on intersection
@@ -166,7 +165,7 @@ class Events:
             if not neighbour_right in begin_point and not inter_point in neighbour_right.endpoints:
                 begin_point.append(neighbour_right)
 
-    def begin_segments(self, event, living_segments, adjuster, solution):
+    def begin_segments(self, event, living_segments, solution):
         """
         begins the segments on event
         """
@@ -181,9 +180,7 @@ class Events:
             if segment not in living_segments:
                 living_segments.add(segment)
 
-            self.check_intersection(event, segment,
-                                     living_segments,
-                                     adjuster, solution)
+            self.check_intersection(segment, living_segments, solution)
 
 
     def add_intersection(self, inter_point):
@@ -204,12 +201,11 @@ class Events:
             self.event_list.add(Event(INTERSECTION, inter_point))
 
 
-    def check_intersection(self, event, segment, segments, adjuster, solution):
+    def check_intersection(self, segment, segments, solution):
         """
         check intersection for one segment and the living segments
         """
-        for inter_point, inter_segment in \
-                                intersect_with(event, segment, segments, adjuster):
+        for inter_point, inter_segment in intersect_with(segment, segments):
 
             # if point not in the past
             if not intersection_is_correct(inter_point, segment, inter_segment):
@@ -236,7 +232,7 @@ def intersection_is_correct(point, seg1, seg2):
     check if an intersection is correct
     """
     #if point not in the past
-    if (point in seg1.endpoints and point in seg2.endpoints):
+    if point in seg1.endpoints and point in seg2.endpoints:
         return False
 
     # Regular cases
@@ -245,7 +241,7 @@ def intersection_is_correct(point, seg1, seg2):
             point.coordinates[0] <= Segment.current_point.coordinates[0])
 
 
-def intersect_with(event, segment, living_segments, adjuster):
+def intersect_with(segment, living_segments):
     """
     computes the intersection with the closest segments from segment
     and iterates on the adjusted intersections with the segments involved
@@ -259,7 +255,7 @@ def intersect_with(event, segment, living_segments, adjuster):
 
         # if there's an intersection
         if inter_point is not None:
-            inter_point = adjuster.hash_point(inter_point)
+            inter_point = Segment.adjuster.hash_point(inter_point)
             yield inter_point, neighbour
 
 def neighbours(segment, segments):
@@ -310,11 +306,9 @@ def intersection_test():
         #print("current event: ", current_event.key)
         if current_event.key in events.begin_points:
             for segment in events.begin_points[current_event.key]:
-                print("segment étudié :", segment)
-                print([p for p in intersect_with(current_event,
-                                                 segment,
-                                                 living_segments,
-                                                 CoordinatesHash())])
+                print("segment :", segment)
+                print([point for point in intersect_with(segment,
+                                                         living_segments)])
 
     print("-----------------------------------------\n")
 

@@ -103,11 +103,7 @@ class Segment:
         """
         svg for tycat.
         """
-        # p = self.endpoints[0].coordinates + self.endpoints[1].coordinates
-        p = Point([0, 0])
-        p.coordinates[0] = (self.endpoints[0].coordinates[0] + self.endpoints[1].coordinates[0])/2
-        p.coordinates[1] = (self.endpoints[0].coordinates[1] + self.endpoints[1].coordinates[1])/2
-
+        
         return '<line x1="{}" y1="{}" x2="{}" y2="{}"/>\n'.format(
             *self.endpoints[0].coordinates,
             *self.endpoints[1].coordinates)
@@ -159,8 +155,6 @@ class Segment:
     def __repr__(self):
         return "Segment[" + repr(self.endpoints[0]) + ", " + \
             repr(self.endpoints[1]) + "]"
-
-
 
 def sweep_intersection(segment, current_point):
     """
