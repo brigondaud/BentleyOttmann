@@ -55,11 +55,14 @@ class Segment:
         const = 0.0
         diff = point2.coordinates[0] - point1.coordinates[0]
 
-        key_abs = sweep_intersection(self, current_point)
+        key_abs, key_ord = sweep_intersection(self, current_point)
 
         # Sign of the angle based on the position of the current point
         epsilon = 1
         if current_point.coordinates[0] > key_abs:
+            epsilon = -1
+
+        if current_point.coordinates[1] < key_ord:
             epsilon = -1
 
         if diff == 0:
@@ -166,9 +169,9 @@ def sweep_intersection(segment, current_point):
     # The key_point is None if segment is horizontal
     if key_point is not None:
         key_point = Segment.adjuster.hash_point(key_point)
-        return key_point.coordinates[0]
+        return key_point.coordinates
     else:
-        return current_point.coordinates[0]
+        return current_point.coordinates
 
 def load_segments(filename):
     """

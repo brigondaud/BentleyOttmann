@@ -235,7 +235,7 @@ def intersection_is_correct(point, seg1, seg2):
         return False
 
     # Regular cases
-    return (point.coordinates[1] <= Segment.current_point.coordinates[1]) or \
+    return (point.coordinates[1] < Segment.current_point.coordinates[1]) or \
            (point.coordinates[1] == Segment.current_point.coordinates[1] and \
             point.coordinates[0] <= Segment.current_point.coordinates[0])
 
