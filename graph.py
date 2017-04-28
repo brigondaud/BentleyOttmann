@@ -9,6 +9,7 @@ import numpy as np
 from bo import test
 
 def theo_graph(x):
+    """ reference function """
     return (x/4000)*np.log10(x)
 
 def draw_graph(test_file):
@@ -26,6 +27,9 @@ def draw_graph(test_file):
     for seg_number, time in results:
         plot_x.append(seg_number)
         plot_y.append(time)
+    plt.xlabel("Nombre de segments")
+    plt.ylabel("Temps (s)")
+    plt.title("Temps de résolution par rapport au nombre de segments")
     plt.plot(plot_x, plot_y, 'ro')
     x_log = np.arange(0, 10000, 1)
     plt.plot(x_log, theo_graph(x_log))
