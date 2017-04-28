@@ -59,12 +59,12 @@ class Solution:
         Prints a summary of all the computed intersections (in total and
         for each segment)
         """
-        print("\n Le nombre d'intersection est :", len(list(self.intersection_points())))
         print("\n========== Nombre d'intersections pour chaque segment ==========\n")
         for segment in self.segments():
             print("{} intersections pour le segment: {}".format(len(list(self.points(segment))),
                                                                 segment))
         print("\n=================================================================\n")
+        print("\n Le nombre d'intersection est :", len(list(self.intersection_points())))
 
 
     def draw(self):
