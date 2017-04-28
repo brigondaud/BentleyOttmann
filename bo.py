@@ -18,7 +18,7 @@ CREATION = 0
 DESTRUCTION = 1
 INTERSECTION = 2
 
-def bentley_ottmann(segments, adjuster, solution):
+def bentley_ottmann(segments, solution):
     """
     computes and returns the result of the bentley ottmann algorithm for the given
     segments and ajuster.
@@ -30,7 +30,6 @@ def bentley_ottmann(segments, adjuster, solution):
 
     # creates the structure for the 'alive' segments:
     # the structure contains a list with the segment and it's key
-    #TODO: compute the optimal load for living segments
     living_segments = SortedList()
     Segment.current_point = None
 
@@ -61,12 +60,15 @@ def test(filename):
     solution = Solution(segments)
 
     # Algorithm
-    bentley_ottmann(segments, adjuster, solution)
+    bentley_ottmann(segments, solution)
 
     # Printing the output of the algorithm
     tycat(segments)
     tycat(solution.segments(), solution.intersection_points())
     solution.summary()
+
+    # Compute the solution with the simple algorithm
+    # solution.simple_algorithm()
 
 def main():
     """

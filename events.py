@@ -57,7 +57,7 @@ class Events:
         """
         self.begin_points = dict()
         self.end_points = dict()
-        #TODO: compute the optimal load number
+
         self.event_list = SortedListWithKey(None, Event.event_comparison)
         for segment in segments:
             self.init_segment_events(segment)

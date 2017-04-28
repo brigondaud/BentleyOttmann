@@ -1,6 +1,7 @@
 """
 Solution module for the Bentley Ottmann algorithm
 """
+from itertools import combinations
 from geo.tycat import tycat
 
 class Solution:
@@ -78,3 +79,12 @@ class Solution:
         draw the living segments and the current_point on top of the normal draw
         """
         tycat(self.segments(), self.intersection_points(), living, current)
+
+    def simple_algorithm(self):
+        """
+        computes the number of interections with the naive algorithm in O(n^2)
+        """
+        intersections = [filter(None, (c[0].intersection_with(c[1]) \
+                               for c in combinations(self.segments(), r=2)))]
+        tycat(self.segments(), intersections)
+        return len(intersections)
