@@ -63,12 +63,15 @@ def test(filename):
     bentley_ottmann(segments, solution)
 
     # Printing the output of the algorithm
-    tycat(segments)
-    tycat(solution.segments(), solution.intersection_points())
-    solution.summary()
+    # tycat(segments)
+    # tycat(solution.segments(), solution.intersection_points())
+    # solution.summary()
 
     # Compute the solution with the simple algorithm
     # solution.simple_algorithm()
+
+    # In order to draw graph
+    return solution
 
 def main():
     """
