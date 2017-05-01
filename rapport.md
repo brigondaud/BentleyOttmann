@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 ----
 
 ## Rapport de projet : Bentley Ottmann
