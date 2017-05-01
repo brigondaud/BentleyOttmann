@@ -31,7 +31,7 @@ L'objectif principal, qui est d'implémenter l'algorithme de Bentley Ottmann n'e
 - Un point important de l'algorithme est la gestion des "segments en vie". Il représentent les segments pouvant effectuer une intersection. Afin de les stocker, nous avons utilisé une SortedList, du module SortedContainers, afin de remplacer une structure d'arbre. Cette structure est couplée avec une fonction de calcul de clé, qui est appelée à chaque opération sur la liste des segments vivants.
 
 
-- Enfin, l'objet Solution permet en outre de stocker la solution (i.e. les intersections), mais permet aussi d'effectuer divers tracés. Cela permet notamment lors du débogage, de tracer l'algorithme étape par étape, en visualisant les segments en vie, le point courant, et les intrsections au fur et à mesure de l'avancement de l'algorithme.
+- Enfin, l'objet Solution permet en outre de stocker la solution (i.e. les intersections), mais permet aussi d'effectuer divers tracés. Cela permet notamment lors du débogage, de tracer l'algorithme étape par étape, en visualisant les segments en vie, le point courant, et les intersections au fur et à mesure de l'avancement de l'algorithme.
 
 ###### Prise de performance
 
@@ -39,8 +39,12 @@ Ci-dessous le graphe du temps de résolution sur les différents tests fournis:
 
 ![](tests.png)
 
-La droite (en bleu) approche la compléxité théorique de l'algorithme en $O(n.log(n))$. En effet
+La droite (en bleu) approche la compléxité théorique de l'algorithme en $O((n+k).log(n))$. En effet si n représente le nombre total d'évènements de création et fin de segments, et k le nombre d'intersections, puisque les structures de données utilisées permettent des opérations en $O(log(n))$, on obtient une compléxité en $O((n+k).log(n))$.
+
+De plus sur des exemples complexes (le fichier carnifex_h_O5 fourni par exemple) avec de nombreux segments, l'exécution de l'algorithme naïf n'a pas beaucoup d'intérêt puisqu'il se termine en plusieurs minutes, contrairement à l'algorithme de Bentley Ottmann.
 
 ----
 
 #### Rapport d'expérience
+
+La recherche et la compréhension des structures de données utiles pour cet algorithme n'a pas été une difficulté pour ce projet. Cependant la première difficulté rencontrée a été une légère incompréhension sur les étapes de l'algorithme présentées lors du cours, plus précisément sur le mécanisme de retirer puis de résinsérer les segments lors d'une intersection afin de recalculer leurs clés pour les ordonner dans les segments vivants.
