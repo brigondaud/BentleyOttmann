@@ -48,3 +48,5 @@ De plus sur des exemples complexes (le fichier carnifex_h_O5 fourni par exemple)
 #### Rapport d'expérience
 
 La recherche et la compréhension des structures de données utiles pour cet algorithme n'a pas été une difficulté pour ce projet. Cependant la première difficulté rencontrée a été une légère incompréhension sur les étapes de l'algorithme présentées lors du cours, plus précisément sur le mécanisme de retirer puis de résinsérer les segments lors d'une intersection afin de recalculer leurs clés pour les ordonner dans les segments vivants.
+
+La deuxième diffcultée a été technique, plus précisément la production d'un code assez propre pour un débogage plus efficace.
