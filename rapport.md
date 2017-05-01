@@ -49,4 +49,6 @@ De plus sur des exemples complexes (le fichier carnifex_h_O5 fourni par exemple)
 
 La recherche et la compréhension des structures de données utiles pour cet algorithme n'a pas été une difficulté pour ce projet. Cependant la première difficulté rencontrée a été une légère incompréhension sur les étapes de l'algorithme présentées lors du cours, plus précisément sur le mécanisme de retirer puis de résinsérer les segments lors d'une intersection afin de recalculer leurs clés pour les ordonner dans les segments vivants.
 
-La deuxième diffcultée a été technique, plus précisément la production d'un code assez propre pour un débogage plus efficace.
+La deuxième diffcultée a été technique, plus précisément la production d'un code assez propre pour un débogage plus efficace. Plusieurs problèmes liés à un code pas assez clair ont été rencontrés, mais la création de l'objet Solution afin d'afficher les étapes de l'algorithme pas à pas a aidé à résoudre les principaux problèmes.
+
+Cependant la résolution des problèmes n'est pas complète, car certains points d'intersection ne sont pas trouvés lors de l'exécution de notre programme. Ce qui implique l'utilisation d'un recherche naïve ainsi qu'une suppression naïve sur l'ensemble des segments vivants. L'algorithme n'est donc pas complétement optimal, quand bien même l'ensemble des segments vivants contient un nombre de segment fortement inférieur au nombre total de segments sur des exemples complexes fournis.
